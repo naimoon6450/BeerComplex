@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { db } = require('../index');
+const db = require('../connection');
 
 const Order = db.define('Order', {
   id: {

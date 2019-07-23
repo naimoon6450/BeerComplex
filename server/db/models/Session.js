@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../connection');
 
-const Session = db.define('session', {
+const Session = db.define('Session', {
   id: {
     type: Sequelize.UUID,
     allowNull: false,
@@ -14,4 +14,4 @@ const Session = db.define('session', {
   },
 });
 
-export default Session;
+module.exports = Session;

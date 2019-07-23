@@ -1,9 +1,11 @@
 const Sequelize = require('sequelize');
-const db = Sequelize(
-  `postgres://${process.env.DB_HOST}:${process.env.PORT}/${
+require('dotenv').config();
+
+const db = new Sequelize(
+  `postgres://${process.env.DB_HOST}:${process.env.DB_PORT}/${
     process.env.DB_NAME
   }`,
   { logging: false }
 );
 
-export default db;
+module.exports = db;

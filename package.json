@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx webpack src/index.js -o ./public/bundle.js --watch & npx nodemon ./server/app.js -q",
+    "start": "npx webpack src/index.js -o ./public/bundle.js --watch & npx nodemon ./server/index.js -q",
     "seed": "node seed.js"
   },
   "dependencies": {

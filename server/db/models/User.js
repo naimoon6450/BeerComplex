@@ -1,24 +1,29 @@
 const Sequelize = require('sequelize');
 const db = require('../connection');
 
-const User = db.define('user', {
+const User = db.define('User', {
   id: {
     type: Sequelize.UUID,
     allowNull: false,
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
   },
-  firstname: {
+  firstName: {
     type: Sequelize.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
-  lastname: {
+  lastName: {
     type: Sequelize.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   address: {
     type: Sequelize.STRING,
-    defaultValue: 'TEST ADDRESS',
   },
   city: {
     type: Sequelize.STRING,
@@ -28,7 +33,7 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     defaultValue: 'TEST STATE',
   },
-  zipcode: {
+  zipCode: {
     type: Sequelize.STRING,
     defaultValue: 'TEST ZIP CODE',
   },
@@ -44,17 +49,17 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     validate: {
       isEmail: true,
+      notEmpty: true,
     },
-    allowNull: false,
-  },
-  username: {
-    type: Sequelize.STRING,
     allowNull: false,
   },
   password: {
     type: Sequelize.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
 });
 
-export default User;
+module.exports = User;
