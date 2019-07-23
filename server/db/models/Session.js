@@ -11,6 +11,9 @@ const Session = db.define('Session', {
   sessionId: {
     type: Sequelize.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
 });
 
