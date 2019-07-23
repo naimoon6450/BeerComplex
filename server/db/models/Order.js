@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const { db } = require('../index');
 
 const pending = 'pending';
-const complet = 'complete';
+const complete = 'complete';
 const Order = db.define('Order', {
   id: {
     type: Sequelize.UUID,
