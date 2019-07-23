@@ -1,18 +1,20 @@
-const Sequelize = require("sequelize");
-const db = require("../index");
+const Sequelize = require('sequelize');
+const { db } = require('../index');
 
-db.define("Order", {
+const Order = db.define('Order', {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
-    primaryKey: true
+    primaryKey: true,
   },
   orderTotal: {
     type: Sequelize.DECIMAL(10, 2),
     defaultValue: 0.0,
     validate: {
       isDecimal: true,
-      min: 0
-    }
-  }
+      min: 0,
+    },
+  },
 });
+
+module.exports = Order;
