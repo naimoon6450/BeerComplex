@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../index');
 
-const Product = db.define('Product', {
+const Category = db.define('Category', {
     id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
@@ -14,15 +14,6 @@ const Product = db.define('Product', {
             notEmpty: true,
         }
     },
-    description: {
-        type: Sequelize.TEXT,
-    },
-    imageUrl: {
-        type: Sequelize.STRING,
-    },
-    price: {
-        type: Sequelize.DECIMAL,
-    },
 });
 
-module.exports = Product;
+module.exports = Category;
