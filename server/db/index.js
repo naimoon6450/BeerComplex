@@ -13,4 +13,7 @@ Category.hasMany(Product);
 module.exports = {
   db,
   Product,
+  Supplier,
+  Category,
+  Order,
 };
