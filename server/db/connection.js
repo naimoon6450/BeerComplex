@@ -2,10 +2,10 @@ const Sequelize = require('sequelize');
 require('dotenv').config();
 
 const db = new Sequelize(
-  `postgres://${process.env.DB_HOST}:${process.env.DB_PORT}/${
-    process.env.DB_NAME
-  }`,
-  { logging: false }
+  process.env.DATABASE_URL || `postgres://localhost:5432/grace_shopper`,
+  {
+    logging: false,
+  }
 );
 
 module.exports = db;
