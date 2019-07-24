@@ -27,23 +27,18 @@ const User = db.define('User', {
   },
   city: {
     type: Sequelize.STRING,
-    defaultValue: 'TEST CITY',
   },
   state: {
     type: Sequelize.STRING,
-    defaultValue: 'TEST STATE',
   },
   zipCode: {
     type: Sequelize.STRING,
-    defaultValue: 'TEST ZIP CODE',
   },
   country: {
     type: Sequelize.STRING,
-    defaultValue: 'TEST COUNTRY',
   },
   phone: {
     type: Sequelize.STRING,
-    defaultValue: 'TEST PHONE',
   },
   email: {
     type: Sequelize.STRING,
