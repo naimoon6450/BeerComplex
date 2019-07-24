@@ -20,5 +20,7 @@ module.exports = {
   Product,
   User,
   Session,
+  Supplier,
+  Category,
   Order,
 };
