@@ -9,12 +9,12 @@ const mapStateToProps = state => {
 
 const AllProducts = props => {
   return (
-    <div>
+    <div style={}>
       <ul>
         {props.products.map(product => {
           return (
             <li>
-              <ul>
+              <ul onClick={()=>{console.log('Product:', product)}}>
                 <li>Name: {product.name}</li>
                 <li>
                   <img src={product.imageUrl} />
@@ -22,6 +22,7 @@ const AllProducts = props => {
                 <li>Description: {product.description}</li>
                 <li>Price: {product.price}</li>
               </ul>
+              <button onClick={()=>{console.log('Added to cart')}}>Add to Cart</button>
             </li>
           );
         })}

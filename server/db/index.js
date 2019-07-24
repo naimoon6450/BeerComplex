@@ -5,7 +5,8 @@ const Category = require('../db/models/Category');
 const Order = require('../db/models/Order');
 const User = require('../db/models/User');
 const Session = require('../db/models/Session');
-
+const Order = require('../db/models/Order');
+const Cart = require('../db/models/Cart');
 // Associations Here
 Product.belongsTo(Supplier);
 Product.belongsTo(Category);
@@ -13,6 +14,12 @@ Supplier.hasMany(Product);
 Category.hasMany(Product);
 User.hasMany(Session);
 Session.belongsTo(User);
+User.hasMany(Order);
+Order.belongsTo(User);
+Cart.hasMany(Product);
+Product.belongsTo(Cart);
+Session.hasOne(Cart);
+Cart.belongsTo(Session);
 
 module.exports = {
   db,
@@ -22,4 +29,5 @@ module.exports = {
   Supplier,
   Category,
   Order,
+  Cart,
 };
