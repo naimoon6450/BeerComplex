@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx webpack src/index.js -o ./public/bundle.js --watch & npx nodemon ./app.js -q",
+    "start": "npx webpack src/index.js -o ./public/bundle.js --watch & npx nodemon ./server/index.js -q",
     "seed": "node seed.js"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "axios": "^0.19.0",
     "body-parser": "^1.16.1",
     "chai": "^4.2.0",
+    "dotenv": "^8.0.0",
     "express": "^4.14.1",
     "morgan": "^1.8.1",
     "pg": "^6.1.2",
