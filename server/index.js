@@ -3,6 +3,7 @@ const path = require('path');
 const db = require('./db/connection');
 const PORT = process.env.HOST_PORT || 8080;
 const app = express();
+const { seed } = require('../seed');
 const morgan = require('morgan');
 
 // for customizing env variables, .env needs to stay in root directory
