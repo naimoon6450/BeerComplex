@@ -25,7 +25,7 @@ app.use('*', (req, res, next) => {
 // db sync, seed, and app start
 db.sync({ force: true })
   .then(() => {
-    // seed();
+    seed();
     app.listen(PORT, () => {
       console.log(`Server listening on PORT: ${PORT}`);
     });

@@ -11,7 +11,6 @@ Product.belongsTo(Supplier);
 Product.belongsTo(Category);
 Supplier.hasMany(Product);
 Category.hasMany(Product);
-
 User.hasMany(Session);
 Session.belongsTo(User);
 
