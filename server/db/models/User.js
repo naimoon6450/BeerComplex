@@ -82,17 +82,24 @@ const User = db.define('User', {
   },
   addressLine1: {
     type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   addressLine2: {
-    type: Sequelize.String,
+    type: Sequelize.STRING,
+    allowNull: true,
   },
   city: {
-    type: Sequelize.ENUM(states),
-  },
-  state: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: {},
+    validate: {
+      notEmpty: true,
+    },
+  },
+  state: {
+    type: Sequelize.ENUM(states),
   },
   zipCode: {
     type: Sequelize.STRING,
@@ -100,7 +107,7 @@ const User = db.define('User', {
     validate: {
       notEmpty: true,
       isNumeric: true,
-      len: [5],
+      len: [5, 5],
     },
   },
   country: {
@@ -122,11 +129,11 @@ const User = db.define('User', {
   },
   email: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
       isEmail: true,
       notEmpty: true,
     },
-    allowNull: false,
   },
   password: {
     type: Sequelize.STRING,
