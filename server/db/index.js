@@ -16,10 +16,6 @@ User.hasMany(Session);
 Session.belongsTo(User);
 User.hasMany(Order);
 Order.belongsTo(User);
-Cart.hasMany(Product);
-Product.belongsTo(Cart);
-Session.hasOne(Cart);
-Cart.belongsTo(Session);
 
 module.exports = {
   db,
