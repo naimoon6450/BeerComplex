@@ -6,7 +6,7 @@ const Order = require('../db/models/Order');
 const User = require('../db/models/User');
 const Session = require('../db/models/Session');
 const Order = require('../db/models/Order');
-const Cart = require('../db/models/Cart');
+
 // Associations Here
 Product.belongsTo(Supplier);
 Product.belongsTo(Category);
@@ -25,5 +25,4 @@ module.exports = {
   Supplier,
   Category,
   Order,
-  Cart,
 };
