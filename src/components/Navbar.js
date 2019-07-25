@@ -8,18 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { makeStyles } from '@material-ui/core/styles';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
-// for overriding custom themes
-const theme = createMuiTheme({
-  palette: {
-    secondary: {
-      main: '#7FDBFF',
-      contrastText: 'white'
-    }
-  }
-});
+import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import { theme } from '../themes';
 
 // using Material UI's makeStyles to create style objects
 const useStyles = makeStyles(theme => ({
@@ -33,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 
 const Navbar = () => {
   // will return an object of styles to use in class
-  const classes = useStyles();
+  const classes = useStyles(theme);
   return (
     <div className={classes.root}>
       <MuiThemeProvider theme={theme}>

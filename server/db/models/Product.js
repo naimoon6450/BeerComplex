@@ -22,6 +22,10 @@ const Product = db.define('Product', {
   },
   price: {
     type: Sequelize.DECIMAL,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    }
   },
 });
 
