@@ -16,14 +16,14 @@ router.get('/orders/:id', async (req, res) => {
 
 // /api/users/:id/orders (all orders of a user)
 router.get('/users/:id/orders', async (req, res) => {
-  const user = await User.findOne({ where: { id: req.params.id } });
+  const user = await User.findByPk(req.params.id);
   const orders = await user.getOrders();
   res.send(orders);
 });
 
 // /api/users/:id/orders/:id (specific order of a user, which includes products)
 router.get('/users/:id/orders/:orderId', async (req, res) => {
-  const user = await User.findOne({ where: { id: req.params.id } });
+  const user = await User.findByPk(req.params.id);
   const orders = await user.getOrders();
   const order = orders.filter(order =>
     order.id === req.params.orderId ? true : false

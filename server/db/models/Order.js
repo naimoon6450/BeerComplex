@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const db = require('../connection');
 
-const pending = 'pending';
-const complete = 'complete';
+const pending = 'PENDING';
+const complete = 'COMPLETE';
 const Order = db.define('Order', {
   id: {
     type: Sequelize.UUID,
@@ -10,10 +10,9 @@ const Order = db.define('Order', {
     primaryKey: true,
   },
   orderTotal: {
-    type: Sequelize.DECIMAL(10, 2),
-    defaultValue: 0.0,
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
     validate: {
-      isDecimal: true,
       min: 0,
     },
   },
