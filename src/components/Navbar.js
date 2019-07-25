@@ -42,9 +42,11 @@ const Navbar = () => {
             <Typography variant="h6" color="inherit" className={classes.title}>
               SHOP CITY
             </Typography>
+            {/* Button [0] for test */}
             <Button component={Link} to="/login" color="inherit">
               Login
             </Button>
+            {/* Button [1] for test */}
             <Button component={Link} to="/signup" color="inherit">
               Sign Up
             </Button>
