@@ -1,4 +1,4 @@
-const { Category, Supplier, Product } = require('./server/db/index'),
+const { Category, Supplier, Product } = require('./server/db/index');
 
 const categories = [
   { name: 'Barleywine' },
@@ -12,7 +12,7 @@ const categories = [
   { name: 'Porter' },
   { name: 'Sour' },
   { name: 'Stout' },
-],
+];
 
 const suppliers = [
   { name: 'Hill Farmstead' },
@@ -25,7 +25,7 @@ const suppliers = [
   { name: 'Crooked Stave Artisan Beer Project' },
   { name: 'Kings County Brewers Collective' },
   { name: 'Avery Brewing Co.' },
-],
+];
 
 const products = [
   {
@@ -148,116 +148,81 @@ const products = [
     imageUrl: '/images/avery_ellies.jpg',
     price: 5.0,
   },
-],
+];
 
 const seed = () => {
   return Promise.all(categories.map(category => Category.create(category)))
     .then(categoryArr => {
-      return Promise.all(
-        suppliers.map(supplier => Supplier.create(supplier))
-      ).then(supplyArr => {
-        return Promise.all(products.map(prod => Product.create(prod))).then(
-          productArr => {
-            const prodMap = productArr.reduce((agg, curr) => {
-              agg[curr.get().name] = curr,
-              return agg,
-            }, {}),
-            const suppMap = supplyArr.reduce((agg, curr) => {
-              agg[curr.get().name] = curr,
-              return agg,
-            }, {}),
-            const catMap = categoryArr.reduce((agg, curr) => {
-              agg[curr.get().name] = curr,
-              return agg,
-            }, {}),
-            const associationArr = [
-              seededProducts[0].setCategory(seededCategories[6]),
-              seededProducts[1].setCategory(seededCategories[4]),
-              seededProducts[2].setCategory(seededCategories[9]),
-              seededProducts[3].setCategory(seededCategories[9]),
-              seededProducts[4].setCategory(seededCategories[4]),
-              seededProducts[5].setCategory(seededCategories[4]),
-              seededProducts[6].setCategory(seededCategories[6]),
-              seededProducts[7].setCategory(seededCategories[4]),
-              seededProducts[8].setCategory(seededCategories[4]),
-              seededProducts[9].setCategory(seededCategories[4]),
-              seededProducts[10].setCategory(seededCategories[2]),
-              seededProducts[11].setCategory(seededCategories[10]),
-              seededProducts[12].setCategory(seededCategories[4]),
-              seededProducts[13].setCategory(seededCategories[8]),
-              seededProducts[14].setCategory(seededCategories[3]),
-              seededProducts[15].setCategory(seededCategories[8]),
-              seededProducts[16].setCategory(seededCategories[7]),
-              seededProducts[17].setCategory(seededCategories[4]),
-              seededProducts[18].setCategory(seededCategories[0]),
-              seededProducts[19].setCategory(seededCategories[1])
-            ]
-          }
-        ),
-      }),
+      return Promise.all(suppliers.map(supplier => Supplier.create(supplier))).then(supplyArr => {
+        return Promise.all(products.map(prod => Product.create(prod))).then(productArr => {
+          // creating maps for prod, supplier, cat with names as keys
+          const prodMap = productArr.reduce((agg, curr) => {
+            agg[curr.get().name] = curr;
+            return agg;
+          }, {});
+          const suppMap = supplyArr.reduce((agg, curr) => {
+            agg[curr.get().name] = curr;
+            return agg;
+          }, {});
+          const catMap = categoryArr.reduce((agg, curr) => {
+            agg[curr.get().name] = curr;
+            return agg;
+          }, {});
+
+          const associationArr = [
+            //setting categories
+            prodMap['Edward'].setCategory(catMap['Pale Ale']),
+            prodMap['Susan'].setCategory(catMap['IPA']),
+            prodMap['Incandenza'].setCategory(catMap['Sour']),
+            prodMap['Mirrorshield'].setCategory(catMap['Sour']),
+            prodMap['All Green Everything'].setCategory(catMap['IPA']),
+            prodMap['Double Mosaic Dream'].setCategory(catMap['IPA']),
+            prodMap['The Substance'].setCategory(catMap['Pale Ale']),
+            prodMap['Reciprocal'].setCategory(catMap['IPA']),
+            prodMap['Heady Topper'].setCategory(catMap['IPA']),
+            prodMap['Focal Banger'].setCategory(catMap['IPA']),
+            prodMap['Gose'].setCategory(catMap['Gose']),
+            prodMap['Mexican Cake'].setCategory(catMap['Stout']),
+            prodMap['Anti-Hero'].setCategory(catMap['IPA']),
+            prodMap['Eugene'].setCategory(catMap['Porter']),
+            prodMap['Surette Provision Saison'].setCategory(catMap['Saison']),
+            prodMap['Coffee Baltic Porter'].setCategory(catMap['Porter']),
+            prodMap['Janiak Maniac'].setCategory(catMap['Pilsner']),
+            prodMap['Superhero Sidekicks'].setCategory(catMap['IPA']),
+            prodMap['Straight Jacket'].setCategory(catMap['Barleywine']),
+            prodMap["Ellie's Brown Ale"].setCategory(catMap['Brown Ale']),
+
+            // setting suppliers
+            prodMap['Edward'].setSupplier(suppMap['Hill Farmstead']),
+            prodMap['Susan'].setSupplier(suppMap['Hill Farmstead']),
+            prodMap['Incandenza'].setSupplier(suppMap['Hudson Valley Brewery']),
+            prodMap['Mirrorshield'].setSupplier(suppMap['Hudson Valley Brewery']),
+            prodMap['All Green Everything'].setSupplier(suppMap['Other Half Brewing Co.']),
+            prodMap['Double Mosaic Dream'].setSupplier(suppMap['Other Half Brewing Co.']),
+            prodMap['The Substance'].setSupplier(suppMap['Bissell Brothers Brewing Company']),
+            prodMap['Reciprocal'].setSupplier(suppMap['Bissell Brothers Brewing Company']),
+            prodMap['Heady Topper'].setSupplier(suppMap['The Alchemist']),
+            prodMap['Focal Banger'].setSupplier(suppMap['The Alchemist']),
+            prodMap['Gose'].setSupplier(suppMap['Westbrook Brewing Co.']),
+            prodMap['Mexican Cake'].setSupplier(suppMap['Westbrook Brewing Co.']),
+            prodMap['Anti-Hero'].setSupplier(suppMap['Revolution Brewing Company']),
+            prodMap['Eugene'].setSupplier(suppMap['Revolution Brewing Company']),
+            prodMap['Surette Provision Saison'].setSupplier(suppMap['Crooked Stave Artisan Beer Project']),
+            prodMap['Coffee Baltic Porter'].setSupplier(suppMap['Crooked Stave Artisan Beer Project']),
+            prodMap['Janiak Maniac'].setSupplier(suppMap['Kings County Brewers Collective']),
+            prodMap['Superhero Sidekicks'].setSupplier(suppMap['Kings County Brewers Collective']),
+            prodMap['Straight Jacket'].setSupplier(suppMap['Revolution Brewing Company']),
+            prodMap["Ellie's Brown Ale"].setSupplier(suppMap['Kings County Brewers Collective']),
+          ];
+          return Promise.all(associationArr).then(associationArr => associationArr);
+        });
+      });
     })
     .catch(e => {
-      console.error(e),
-    }),
-
-  // Promise.all(categories.map(category => Category.create(category)))
-  //   .then(seededCategories => {
-  //     Promise.all(suppliers.map(supplier => Supplier.create(supplier))).then(
-  //       seededSuppliers => {
-  //         Promise.all(products.map(product => Product.create(product))).then(
-  //           seededProducts => {
-  //             // setting the categories on products: currently using categories UUID
-  //             seededProducts[0].setCategory(seededCategories[6]),
-  //             seededProducts[1].setCategory(seededCategories[4]),
-  //             seededProducts[2].setCategory(seededCategories[9]),
-  //             seededProducts[3].setCategory(seededCategories[9]),
-  //             seededProducts[4].setCategory(seededCategories[4]),
-  //             seededProducts[5].setCategory(seededCategories[4]),
-  //             seededProducts[6].setCategory(seededCategories[6]),
-  //             seededProducts[7].setCategory(seededCategories[4]),
-  //             seededProducts[8].setCategory(seededCategories[4]),
-  //             seededProducts[9].setCategory(seededCategories[4]),
-  //             seededProducts[10].setCategory(seededCategories[2]),
-  //             seededProducts[11].setCategory(seededCategories[10]),
-  //             seededProducts[12].setCategory(seededCategories[4]),
-  //             seededProducts[13].setCategory(seededCategories[8]),
-  //             seededProducts[14].setCategory(seededCategories[3]),
-  //             seededProducts[15].setCategory(seededCategories[8]),
-  //             seededProducts[16].setCategory(seededCategories[7]),
-  //             seededProducts[17].setCategory(seededCategories[4]),
-  //             seededProducts[18].setCategory(seededCategories[0]),
-  //             seededProducts[19].setCategory(seededCategories[1]),
-
-  //             // setting the suppliers on products: also using prod UUID
-  //             seededProducts[0].setSupplier(seededSuppliers[0]),
-  //             seededProducts[1].setSupplier(seededSuppliers[0]),
-  //             seededProducts[2].setSupplier(seededSuppliers[1]),
-  //             seededProducts[3].setSupplier(seededSuppliers[1]),
-  //             seededProducts[4].setSupplier(seededSuppliers[2]),
-  //             seededProducts[5].setSupplier(seededSuppliers[2]),
-  //             seededProducts[6].setSupplier(seededSuppliers[3]),
-  //             seededProducts[7].setSupplier(seededSuppliers[3]),
-  //             seededProducts[8].setSupplier(seededSuppliers[4]),
-  //             seededProducts[9].setSupplier(seededSuppliers[4]),
-  //             seededProducts[10].setSupplier(seededSuppliers[5]),
-  //             seededProducts[11].setSupplier(seededSuppliers[5]),
-  //             seededProducts[12].setSupplier(seededSuppliers[6]),
-  //             seededProducts[13].setSupplier(seededSuppliers[6]),
-  //             seededProducts[14].setSupplier(seededSuppliers[7]),
-  //             seededProducts[15].setSupplier(seededSuppliers[7]),
-  //             seededProducts[16].setSupplier(seededSuppliers[8]),
-  //             seededProducts[17].setSupplier(seededSuppliers[8]),
-  //             seededProducts[18].setSupplier(seededSuppliers[6]),
-  //             seededProducts[19].setSupplier(seededSuppliers[9]),
-  //             console.log("Tables Seeded"),
-  //           }
-  //         ),
-  //       }
-  //     ),
-  //   })
-  //   .catch(e => console.error(e)),
-},
+      console.error(e);
+    });
+};
 
 module.exports = {
   seed,
-},
+};
