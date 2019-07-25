@@ -9,7 +9,7 @@ const morgan = require('morgan');
 // static middleware, body parsing middleware, logging middleware
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.json());
-app.use(morgan(process.env.MORGAN_MODE || null ));
+app.use(morgan(process.env.MORGAN_MODE || null));
 
 // 'API' routes
 // app.use('/api', require('./api'));
