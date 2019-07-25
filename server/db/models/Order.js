@@ -14,6 +14,7 @@ const Order = db.define('Order', {
     defaultValue: 0,
     validate: {
       min: 0,
+      isInt: true,
     },
   },
   status: {
