@@ -6,13 +6,10 @@ const app = express();
 const { seed } = require('../seed');
 const morgan = require('morgan');
 
-// for customizing env variables, .env needs to stay in root directory
-require('dotenv').config();
-
 // static middleware, body parsing middleware, logging middleware
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.json());
-app.use(morgan('dev'));
+app.use(morgan(process.env.MORGAN_MODE || null ));
 
 // 'API' routes
 // app.use('/api', require('./api'));
