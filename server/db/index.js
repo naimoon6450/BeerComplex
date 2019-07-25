@@ -24,5 +24,4 @@ module.exports = {
   Supplier,
   Category,
   Order,
-  Cart,
 };
