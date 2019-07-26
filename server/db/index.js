@@ -1,10 +1,10 @@
-const db = require("./connection");
-const Product = require("../db/models/Product");
-const Supplier = require("../db/models/Supplier");
-const Category = require("../db/models/Category");
-const Order = require("../db/models/Order");
-const User = require("../db/models/User");
-const Session = require("../db/models/Session");
+const db = require('./connection');
+const Product = require('../db/models/Product');
+const Supplier = require('../db/models/Supplier');
+const Category = require('../db/models/Category');
+const Order = require('../db/models/Order');
+const User = require('../db/models/User');
+const Session = require('../db/models/Session');
 
 // Associations Here
 Product.belongsTo(Supplier);
@@ -13,6 +13,8 @@ Supplier.hasMany(Product);
 Category.hasMany(Product);
 User.hasMany(Session);
 Session.belongsTo(User);
+User.hasMany(Order);
+Order.belongsTo(User);
 
 module.exports = {
   db,
@@ -21,5 +23,5 @@ module.exports = {
   Session,
   Supplier,
   Category,
-  Order
+  Order,
 };
