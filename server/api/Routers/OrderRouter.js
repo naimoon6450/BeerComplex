@@ -1,10 +1,8 @@
 const router = require('express').Router();
-const { Order, User } = require('../../db/models/');
+const { Order, User, OrderProduct } = require('../../db/index');
 
-// Routes:
-
-// /api/orders (all orders)
-router.get('/orders', async (req, res) => {
+// API/orders
+router.get('/', async (req, res) => {
   try {
     const orders = await Order.findAll();
     res.json(orders);
@@ -60,5 +58,20 @@ router.get('/users/:id/orders/:orderId', async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+// API/orders
+router.post('/orders', async (req, res, next) => {
+try {
+  const { user, session, orderTotal, products} = req.body;
+  const order = await Order.create({user, session, orderTotal});
+  const orderProducts = await products.map(product => {
+    return OrderProduct.create({productId: product.id, productQuantity: product.productQuantity});
+  });
+  orderProducts.map(orderProduct => orderProduct.update({orderId: order.id}));
+}
+catch (error) {
+  console.error(error);
+}
+})
 
 module.exports = router;
