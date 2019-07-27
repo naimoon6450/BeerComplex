@@ -18,7 +18,7 @@ router.get('/orders', async (req, res) => {
 // /api/orders/:id (specific order, which includes products)
 router.get('/orders/:id', async (req, res) => {
   try {
-    const order = await Order.findOne({ where: { id: req.params.id }, include: {models: ['Product', 'Session']} });
+    const order = await Order.findOne({ where: { id: req.params.id }, include: {models: ['OrderProduct', 'Product', 'Session']} });
     res.json(order);
   } catch (e) {
     console.log(e =>
