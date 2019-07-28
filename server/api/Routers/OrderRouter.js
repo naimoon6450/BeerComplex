@@ -20,9 +20,7 @@ router.get('/orders/:id', async (req, res) => {
     const order = await Order.findOne({ where: { id: req.params.id } });
     res.json(order);
   } catch (e) {
-    console.log(e =>
-      console.error(`Could not get Order:${req.params.id} from database`, e)
-    );
+    console.log(e => console.error(`Could not get Order:${req.params.id} from database`, e));
     res.sendStatus(500);
   }
 });
@@ -34,12 +32,7 @@ router.get('/users/:id/orders', async (req, res) => {
     const orders = await user.getOrders();
     res.json(orders);
   } catch (e) {
-    console.log(e =>
-      console.error(
-        `Could not get User:${req.params.id}'s Orders from database`,
-        e
-      )
-    );
+    console.log(e => console.error(`Could not get User:${req.params.id}'s Orders from database`, e));
     res.sendStatus(500);
   }
 });
@@ -49,18 +42,11 @@ router.get('/users/:id/orders/:orderId', async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
     const orders = await user.getOrders();
-    const order = orders.filter(order =>
-      order.id === req.params.orderId ? true : false
-    )[0];
+    const order = orders.filter(order => order.id === req.params.orderId)[0];
     res.json(order);
   } catch (e) {
     console.log(e =>
-      console.error(
-        `Could not get User:${req.params.id}'s Order:${
-          req.params.userId
-        } from database`,
-        e
-      )
+      console.error(`Could not get User:${req.params.id}'s Order:${req.params.userId} from database`, e)
     );
     res.sendStatus(500);
   }

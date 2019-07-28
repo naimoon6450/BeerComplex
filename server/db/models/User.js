@@ -82,17 +82,20 @@ const User = db.define('User', {
   },
   addressLine1: {
     type: Sequelize.STRING,
+    allowNull: false,
   },
   addressLine2: {
-    type: Sequelize.String,
+    type: Sequelize.STRING,
   },
   city: {
-    type: Sequelize.ENUM(states),
+    type: Sequelize.STRING,
   },
   state: {
-    type: Sequelize.STRING,
+    type: Sequelize.ENUM(states),
     allowNull: false,
-    validate: {},
+    validate: {
+      notEmpty: true,
+    },
   },
   zipCode: {
     type: Sequelize.STRING,
