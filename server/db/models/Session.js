@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../connection');
 
-const Session = db.define('Session', {
+const Session = db.define('session', {
   id: {
     type: Sequelize.UUID,
     allowNull: false,
