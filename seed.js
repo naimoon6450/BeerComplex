@@ -1,4 +1,25 @@
-const { Category, Supplier, Product } = require('./server/db/index');
+const { Category, Supplier, Product, Session, User, Order, OrderProduct } = require('./server/db/index');
+
+// const users = [
+//   { firstName: 'Bojack', lastName: 'Horseman', addressLine1: '123 Hollywoo Lane', addressLine2: 'Apt 1A', city: 'Hollywoo', state: 'CA - California', zipCode: '55555', country: 'US', phone: '5555555555', email: 'bojack@horseman.com', password: 'p@$$w0rd' },
+// ];
+
+// const sessions = [
+//   { sessionId: `SID=${Date.now()}`},
+//   { sessionId: `SID=${Date.now() * 1500}`},
+// ];
+
+// const orderProducts = [
+//   { productQuantity: 2 },
+//   { productQuantity: 3 },
+//   { productQuantity: 1 },
+//   { productQuantity: 2 },
+// ]
+
+// const order = [
+//   {orderTotal: 30, status: 'COMPLETED'},
+//   {orderTotal: 25, status: 'PENDING'},
+// ]
 
 const categories = [
   { name: 'Barleywine' },
