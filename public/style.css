@@ -6,3 +6,8 @@ body {
 #main {
   margin: 2em;
 }
+
+.product-image {
+  height: 200px;
+  width: 200px;
+}

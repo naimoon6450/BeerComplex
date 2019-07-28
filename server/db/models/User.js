@@ -59,7 +59,7 @@ const states = [
   'WY - Wyoming',
 ];
 
-const User = db.define('User', {
+const User = db.define('user', {
   id: {
     type: Sequelize.UUID,
     allowNull: false,

@@ -1,34 +1,47 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { fetchAllProducts } from '../redux/reducers/product';
+
+class AllProducts extends React.Component {
+  componentDidMount() {
+    this.props.fetchProducts();
+  }
+
+  render() {
+    const { products } = this.props;
+    return (
+        <ul>
+          {products.map(product => {
+            const { supplier, category } = product;
+            return (
+              <li key={product.id}>
+                <ul onClick={() => {console.log('Product:', product)}}>
+                  <li>Name: {product.name}</li>
+                  <li><img src={product.imageUrl} className="product-image" /></li>
+                  <li>Category: {category.name}</li>
+                  <li>Description: {product.description}</li>
+                  <li>Price: ${product.price}</li>
+                  <li>Brewery: {supplier.name}</li>
+                </ul>
+                <button type="button" onClick={() => {console.log('Added to cart')}}>Add to Cart</button>
+              </li>
+            );
+          })}
+        </ul>
+    );
+  }
+}
 
 const mapStateToProps = state => {
   return {
-    products: state.products,
-  };
-};
+      products: state.products.products,
+  }
+}
 
-const AllProducts = props => {
-  return (
-    <div style={}>
-      <ul>
-        {props.products.map(product => {
-          return (
-            <li>
-              <ul onClick={()=>{console.log('Product:', product)}}>
-                <li>Name: {product.name}</li>
-                <li>
-                  <img src={product.imageUrl} />
-                </li>
-                <li>Description: {product.description}</li>
-                <li>Price: {product.price}</li>
-              </ul>
-              <button onClick={()=>{console.log('Added to cart')}}>Add to Cart</button>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
-};
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchProducts: () => dispatch(fetchAllProducts()),
+  }
+}
 
-export default connect(mapStateToProps)(AllProducts);
+export default connect(mapStateToProps, mapDispatchToProps)(AllProducts);
