@@ -25,7 +25,7 @@ const Product = db.define('Product', {
     allowNull: false,
     validate: {
       notEmpty: true,
-    }
+    },
   },
 });
 
