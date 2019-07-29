@@ -9,16 +9,16 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
-import { theme } from '../themes';
+import theme from '../themes';
 
 // using Material UI's makeStyles to create style objects
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   title: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 }));
 
 const Navbar = () => {
