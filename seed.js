@@ -1,8 +1,20 @@
 const { Category, Supplier, Product, Session, User, Order, OrderProduct } = require('./server/db/index');
 
-// const users = [
-//   { firstName: 'Bojack', lastName: 'Horseman', addressLine1: '123 Hollywoo Lane', addressLine2: 'Apt 1A', city: 'Hollywoo', state: 'CA - California', zipCode: '55555', country: 'US', phone: '5555555555', email: 'bojack@horseman.com', password: 'p@$$w0rd' },
-// ];
+const users = [
+  {
+    firstName: 'Bojack',
+    lastName: 'Horseman',
+    addressLine1: '123 Hollywoo Lane',
+    addressLine2: 'Apt 1A',
+    city: 'Hollywoo',
+    state: 'CA - California',
+    zipCode: '55555',
+    country: 'US',
+    phone: '5555555555',
+    email: 'bojack@horseman.com',
+    password: 'pw0rdyoiou',
+  },
+];
 
 // const sessions = [
 //   { sessionId: `SID=${Date.now()}`},
@@ -234,6 +246,7 @@ const seed = () => {
             prodMap['Superhero Sidekicks'].setSupplier(suppMap['Kings County Brewers Collective']),
             prodMap['Straight Jacket'].setSupplier(suppMap['Revolution Brewing Company']),
             prodMap["Ellie's Brown Ale"].setSupplier(suppMap['Kings County Brewers Collective']),
+            User.create(users[0]),
           ];
           return Promise.all(associationArr).then(associationArr => associationArr);
         });

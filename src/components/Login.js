@@ -33,52 +33,46 @@ const useStyles = makeStyles(theme => ({
 const Login = () => {
   const classes = useStyles();
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component='main' maxWidth='xs'>
       <CssBaseline />
       <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          Sign Up
+        <Typography component='h1' variant='h5'>
+          Log In
         </Typography>
-        <form className={classes.form}>
+        <form className={classes.form} method='post' action='/api/login'>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                variant="outlined"
+                variant='outlined'
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id='email'
+                label='Email Address'
+                name='email'
+                autoComplete='email'
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                variant="outlined"
+                variant='outlined'
                 required
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
+                name='password'
+                label='Password'
+                type='password'
+                id='password'
+                autoComplete='current-password'
               />
             </Grid>
           </Grid>
           <MuiThemeProvider theme={theme}>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="secondary"
-              className={classes.submit}
-            >
+            <Button type='submit' fullWidth variant='contained' color='secondary' className={classes.submit}>
               Log In
             </Button>
           </MuiThemeProvider>
-          <Grid container justify="flex-end">
+          <Grid container justify='flex-end'>
             <Grid item>
-              <Link href="/signup" variant="body2">
+              <Link href='/signup' variant='body2'>
                 Don't have an account? Sign Up
               </Link>
             </Grid>

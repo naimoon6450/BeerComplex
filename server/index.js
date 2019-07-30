@@ -14,18 +14,6 @@ const session = require('express-session');
 const createDbStore = require('connect-session-sequelize');
 const SequelizeStore = createDbStore(session.Store);
 
-const user = {
-  firstName: 'Bojack',
-  lastName: 'Horseman',
-  addressLine1: '123 Hollywoo Lane',
-  addressLine2: 'Apt 1A',
-  city: 'Hollywoo',
-  state: 'CA - California',
-  zipCode: '55555',
-  country: 'US',
-  phone: '5555555555',
-};
-
 // static middleware, body parsing middleware, logging middleware
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.json());
@@ -51,15 +39,6 @@ app.use(
   })
 );
 
-app.get('/home', (req, res, next) => {
-  console.log(req.session);
-  res.send(200);
-});
-
-app.post('/login', (req, res, next) => {
-  res.send(200);
-});
-
 // 'API' routes
 app.use('/api', require('./api'));
 
@@ -68,10 +47,10 @@ app.use('*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
 
-// db sync, seed, and app start, need to come back to this later as we don't want to drop tables upon start
-db.sync({ force: true })
+// db sync, seed, and app start, need to come back to this later as we don't want to drop tables upon start { force: true }
+db.sync()
   .then(() => {
-    seed();
+    // seed();
     app.listen(PORT, () => {
       console.log(`Server listening on PORT: ${PORT}`);
     });
