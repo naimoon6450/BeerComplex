@@ -19,9 +19,7 @@ router.get('/orders/:id', async (req, res) => {
     const order = await Order.findOne({ where: { id: req.params.id }, include: {models: ['OrderProduct', 'Product', 'Session']} });
     res.json(order);
   } catch (e) {
-    console.log(e =>
-      console.error(`Could not get Order:${req.params.id} from database`, e)
-    );
+    console.log(e => console.error(`Could not get Order:${req.params.id} from database`, e));
     res.sendStatus(500);
   }
 });
@@ -33,12 +31,7 @@ router.get('/users/:id/orders', async (req, res) => {
     const orders = await user.getOrders();
     res.json(orders);
   } catch (e) {
-    console.log(e =>
-      console.error(
-        `Could not get User:${req.params.id}'s Orders from database`,
-        e
-      )
-    );
+    console.log(e => console.error(`Could not get User:${req.params.id}'s Orders from database`, e));
     res.sendStatus(500);
   }
 });
