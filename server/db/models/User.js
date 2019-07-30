@@ -58,6 +58,7 @@ const states = [
   'WV - West Virginia',
   'WY - Wyoming',
 ];
+
 const countries = [
   'Afghanistan',
   'Albania',
@@ -311,7 +312,6 @@ const User = db.define('User', {
   },
   zipCode: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       notEmpty: true,
       isNumeric: true,
@@ -328,7 +328,6 @@ const User = db.define('User', {
   },
   phone: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       notEmpty: true,
       len: [7, 11],

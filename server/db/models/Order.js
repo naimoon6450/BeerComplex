@@ -3,7 +3,7 @@ const db = require('../connection');
 
 const pending = 'PENDING';
 const complete = 'COMPLETE';
-const Order = db.define('Order', {
+const Order = db.define('order', {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
