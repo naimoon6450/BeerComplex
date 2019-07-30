@@ -24,3 +24,5 @@ describe('Product routes', () => {
     });
   });
 });
+
+describe('Order routes', () => {});
