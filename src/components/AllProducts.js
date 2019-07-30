@@ -1,34 +1,69 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { fetchAllProducts } from '../redux/reducers/product';
 
-const mapStateToProps = state => {
-  return {
-    products: state.products,
-  };
-};
+class AllProducts extends React.Component {
+  componentDidMount() {
+    this.props.fetchProducts();
+  }
 
-const AllProducts = props => {
-  return (
-    <div style={}>
+  render() {
+    const { products } = this.props;
+    return (
       <ul>
-        {props.products.map(product => {
+        {products.map(product => {
+          const { supplier, category } = product;
           return (
-            <li>
-              <ul onClick={()=>{console.log('Product:', product)}}>
+            <li key={product.id}>
+              <ul
+                onClick={() => {
+                  console.log('Product:', product);
+                }}
+              >
                 <li>Name: {product.name}</li>
                 <li>
-                  <img src={product.imageUrl} />
+                  <img src={product.imageUrl} className="product-image" />
                 </li>
+                <li>Category: {category.name}</li>
                 <li>Description: {product.description}</li>
-                <li>Price: {product.price}</li>
+                <li>Price: ${product.price}</li>
+                <li>Brewery: {supplier.name}</li>
               </ul>
-              <button onClick={()=>{console.log('Added to cart')}}>Add to Cart</button>
+              <button
+                type="button"
+                onClick={() => {
+                  console.log('Added to cart');
+                }}
+              >
+                Add to Cart
+              </button>
             </li>
           );
         })}
       </ul>
-    </div>
-  );
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    products: state.products.products,
+  };
 };
 
-export default connect(mapStateToProps)(AllProducts);
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchProducts: () => dispatch(fetchAllProducts()),
+  };
+};
+
+// proptypes to do typechecking
+AllProducts.propTypes = {
+  products: PropTypes.array,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AllProducts);

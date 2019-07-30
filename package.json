@@ -4,15 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx webpack src/index.js -o ./public/bundle.js --watch & npx nodemon ./server/index.js -q",
-    "test": "npx jest ./tests/setup.js ./tests/**/**/*.spec.js --watch"
+    "start": "node server/index.js",
+    "heroku-postbuild": "webpack -p",
+    "test": "npm jest ./tests/setup.js ./tests/**/**/*.spec.js",
+    "start:dev": "npx webpack src/index.js -o ./public/bundle.js --watch & npx nodemon ./server/index.js -q",
+    "test:dev": "npx jest ./tests/setup.js ./tests/**/**/*.spec.js --watch"
   },
   "dependencies": {
     "@material-ui/core": "^4.2.1",
     "@material-ui/icons": "^4.2.1",
     "axios": "^0.19.0",
+    "connect-session-sequelize": "^6.0.0",
     "dotenv": "^8.0.0",
     "express": "^4.14.1",
+    "express-session": "^1.16.2",
     "morgan": "^1.8.1",
     "pg": "^6.1.2",
     "pg-hstore": "^2.3.2",
@@ -46,6 +51,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "jest": "^24.8.0",
+    "prop-types": "^15.7.2",
     "redux-devtools-extension": "^2.13.0",
     "supertest": "^4.0.2",
     "webpack": "^4.35.2",
