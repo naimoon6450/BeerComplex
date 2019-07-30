@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const db = require('./db/connection');
-const PORT = process.env.HOST_PORT || 8080;
+const PORT = process.env.PORT || 8080;
 const app = express();
 const { seed } = require('../seed');
 const morgan = require('morgan');
