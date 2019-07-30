@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node server/index.js",
     "heroku-postbuild": "webpack -p",
     "test": "npm jest ./tests/setup.js ./tests/**/**/*.spec.js",
     "start:dev": "npx webpack src/index.js -o ./public/bundle.js --watch & npx nodemon ./server/index.js -q",
