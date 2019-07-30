@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Navbar, Login, SignUp, AllProducts } from './index';
+import { Navbar, Login, SignUp, AllProducts, Home } from './index';
 
 class Main extends React.Component {
   render() {
@@ -11,7 +11,9 @@ class Main extends React.Component {
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={SignUp} />
-            <Route path="/products" component={AllProducts} />
+            {/* temp fix: rendering removes 'Failed prop type: Invalid prop `component` of type `object` supplied to `Route`, expected `function`. */}
+            <Route path="/products" render={() => <AllProducts />} />
+            <Route path="/home" component={Home} />
           </Switch>
         </div>
       </div>
