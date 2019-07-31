@@ -51,15 +51,6 @@ app.use(
   })
 );
 
-app.get('/home', (req, res, next) => {
-  console.log(req.session);
-  res.send(200);
-});
-
-app.post('/login', (req, res, next) => {
-  res.send(200);
-});
-
 // 'API' routes
 app.use('/api', require('./api'));
 
