@@ -15,6 +15,12 @@ const Session = db.define('session', {
       notEmpty: true,
     },
   },
+  expires: {
+    type: Sequelize.DATE,
+  },
+  data: {
+    type: Sequelize.STRING(50000),
+  },
 });
 
 module.exports = Session;
