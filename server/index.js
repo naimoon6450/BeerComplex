@@ -48,9 +48,9 @@ app.use(
 app.use('/api', require('./api'));
 
 // send index.html
-app.use('*', (req, res, next) => {
-  res.sendFile(path.join(__dirname, '..', 'public/index.html'));
-});
+// app.use('*', (req, res, next) => {
+//   res.sendFile(path.join(__dirname, '..', 'public/index.html'));
+// });
 
 db.sync()
   .then(() => {
