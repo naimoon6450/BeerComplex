@@ -19,7 +19,7 @@ const Order = db.define('order', {
   },
   status: {
     type: Sequelize.ENUM(PENDING, COMPLETE),
-    defaultValue: pending,
+    defaultValue: PENDING,
   },
 });
 
