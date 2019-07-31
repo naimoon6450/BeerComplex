@@ -1,4 +1,5 @@
 const { Category, Supplier, Product, Session, User, Order, OrderProduct } = require('./server/db/index');
+const db = require('./server/db/connection');
 
 const users = [
   {
@@ -197,46 +198,48 @@ const products = [
 ];
 
 const seed = () => {
-  return Promise.all(categories.map(category => Category.create(category)))
-    .then(categoryArr => {
-      return Promise.all(suppliers.map(supplier => Supplier.create(supplier))).then(supplyArr => {
-        return Promise.all(products.map(prod => Product.create(prod))).then(productArr => {
-          // creating maps for prod, supplier, cat with names as keys
-          const prodMap = productArr.reduce((agg, curr) => {
-            agg[curr.get().name] = curr;
-            return agg;
-          }, {});
-          const suppMap = supplyArr.reduce((agg, curr) => {
-            agg[curr.get().name] = curr;
-            return agg;
-          }, {});
-          const catMap = categoryArr.reduce((agg, curr) => {
-            agg[curr.get().name] = curr;
-            return agg;
-          }, {});
+  db.sync({ force: true })
+    .then(() => {
+      console.log('Seeding db...');
+      return Promise.all(categories.map(category => Category.create(category))).then(categoryArr => {
+        return Promise.all(suppliers.map(supplier => Supplier.create(supplier))).then(supplyArr => {
+          return Promise.all(products.map(prod => Product.create(prod))).then(productArr => {
+            // creating maps for prod, supplier, cat with names as keys
+            const prodMap = productArr.reduce((agg, curr) => {
+              agg[curr.get().name] = curr;
+              return agg;
+            }, {});
+            const suppMap = supplyArr.reduce((agg, curr) => {
+              agg[curr.get().name] = curr;
+              return agg;
+            }, {});
+            const catMap = categoryArr.reduce((agg, curr) => {
+              agg[curr.get().name] = curr;
+              return agg;
+            }, {});
 
-          const associationArr = [
-            //setting categories
-            prodMap['Edward'].setCategory(catMap['Pale Ale']),
-            prodMap['Susan'].setCategory(catMap['IPA']),
-            prodMap['Incandenza'].setCategory(catMap['Sour']),
-            prodMap['Mirrorshield'].setCategory(catMap['Sour']),
-            prodMap['All Green Everything'].setCategory(catMap['IPA']),
-            prodMap['Double Mosaic Dream'].setCategory(catMap['IPA']),
-            prodMap['The Substance'].setCategory(catMap['Pale Ale']),
-            prodMap['Reciprocal'].setCategory(catMap['IPA']),
-            prodMap['Heady Topper'].setCategory(catMap['IPA']),
-            prodMap['Focal Banger'].setCategory(catMap['IPA']),
-            prodMap['Gose'].setCategory(catMap['Gose']),
-            prodMap['Mexican Cake'].setCategory(catMap['Stout']),
-            prodMap['Anti-Hero'].setCategory(catMap['IPA']),
-            prodMap['Eugene'].setCategory(catMap['Porter']),
-            prodMap['Surette Provision Saison'].setCategory(catMap['Saison']),
-            prodMap['Coffee Baltic Porter'].setCategory(catMap['Porter']),
-            prodMap['Janiak Maniac'].setCategory(catMap['Pilsner']),
-            prodMap['Superhero Sidekicks'].setCategory(catMap['IPA']),
-            prodMap['Straight Jacket'].setCategory(catMap['Barleywine']),
-            prodMap["Ellie's Brown Ale"].setCategory(catMap['Brown Ale']),
+            const associationArr = [
+              //setting categories
+              prodMap['Edward'].setCategory(catMap['Pale Ale']),
+              prodMap['Susan'].setCategory(catMap['IPA']),
+              prodMap['Incandenza'].setCategory(catMap['Sour']),
+              prodMap['Mirrorshield'].setCategory(catMap['Sour']),
+              prodMap['All Green Everything'].setCategory(catMap['IPA']),
+              prodMap['Double Mosaic Dream'].setCategory(catMap['IPA']),
+              prodMap['The Substance'].setCategory(catMap['Pale Ale']),
+              prodMap['Reciprocal'].setCategory(catMap['IPA']),
+              prodMap['Heady Topper'].setCategory(catMap['IPA']),
+              prodMap['Focal Banger'].setCategory(catMap['IPA']),
+              prodMap['Gose'].setCategory(catMap['Gose']),
+              prodMap['Mexican Cake'].setCategory(catMap['Stout']),
+              prodMap['Anti-Hero'].setCategory(catMap['IPA']),
+              prodMap['Eugene'].setCategory(catMap['Porter']),
+              prodMap['Surette Provision Saison'].setCategory(catMap['Saison']),
+              prodMap['Coffee Baltic Porter'].setCategory(catMap['Porter']),
+              prodMap['Janiak Maniac'].setCategory(catMap['Pilsner']),
+              prodMap['Superhero Sidekicks'].setCategory(catMap['IPA']),
+              prodMap['Straight Jacket'].setCategory(catMap['Barleywine']),
+              prodMap["Ellie's Brown Ale"].setCategory(catMap['Brown Ale']),
 
             // setting suppliers
             prodMap['Edward'].setSupplier(suppMap['Hill Farmstead']),
@@ -266,11 +269,16 @@ const seed = () => {
         });
       });
     })
+    .then(() => {
+      console.log('Database seeded...');
+    })
     .catch(e => {
       console.error(e);
+    })
+    .then(() => {
+      db.close();
+      return null;
     });
 };
 
-module.exports = {
-  seed,
-};
+seed();
