@@ -13,7 +13,20 @@ const users = [
     country: 'US',
     phone: '5555555555',
     email: 'bojack@horseman.com',
-    password: 'pass0oprd',
+    password: 'passswordio1233',
+  },
+  {
+    firstName: 'Naimun',
+    lastName: 'Siraj',
+    addressLine1: '123 Hollywoo Lane',
+    addressLine2: 'Apt 1A',
+    city: 'Hollywoo',
+    state: 'CA - California',
+    zipCode: '55555',
+    country: 'US',
+    phone: '5555555555',
+    email: 'naimoon6450@gmail.com',
+    password: 'abcdef123',
   },
 ];
 
@@ -228,31 +241,31 @@ const seed = () => {
               prodMap['Straight Jacket'].setCategory(catMap['Barleywine']),
               prodMap["Ellie's Brown Ale"].setCategory(catMap['Brown Ale']),
 
-              // setting suppliers
-              prodMap['Edward'].setSupplier(suppMap['Hill Farmstead']),
-              prodMap['Susan'].setSupplier(suppMap['Hill Farmstead']),
-              prodMap['Incandenza'].setSupplier(suppMap['Hudson Valley Brewery']),
-              prodMap['Mirrorshield'].setSupplier(suppMap['Hudson Valley Brewery']),
-              prodMap['All Green Everything'].setSupplier(suppMap['Other Half Brewing Co.']),
-              prodMap['Double Mosaic Dream'].setSupplier(suppMap['Other Half Brewing Co.']),
-              prodMap['The Substance'].setSupplier(suppMap['Bissell Brothers Brewing Company']),
-              prodMap['Reciprocal'].setSupplier(suppMap['Bissell Brothers Brewing Company']),
-              prodMap['Heady Topper'].setSupplier(suppMap['The Alchemist']),
-              prodMap['Focal Banger'].setSupplier(suppMap['The Alchemist']),
-              prodMap['Gose'].setSupplier(suppMap['Westbrook Brewing Co.']),
-              prodMap['Mexican Cake'].setSupplier(suppMap['Westbrook Brewing Co.']),
-              prodMap['Anti-Hero'].setSupplier(suppMap['Revolution Brewing Company']),
-              prodMap['Eugene'].setSupplier(suppMap['Revolution Brewing Company']),
-              prodMap['Surette Provision Saison'].setSupplier(suppMap['Crooked Stave Artisan Beer Project']),
-              prodMap['Coffee Baltic Porter'].setSupplier(suppMap['Crooked Stave Artisan Beer Project']),
-              prodMap['Janiak Maniac'].setSupplier(suppMap['Kings County Brewers Collective']),
-              prodMap['Superhero Sidekicks'].setSupplier(suppMap['Kings County Brewers Collective']),
-              prodMap['Straight Jacket'].setSupplier(suppMap['Revolution Brewing Company']),
-              prodMap["Ellie's Brown Ale"].setSupplier(suppMap['Kings County Brewers Collective']),
-              User.create(users[0]),
-            ];
-            return Promise.all(associationArr).then(associationArr => associationArr);
-          });
+            // setting suppliers
+            prodMap['Edward'].setSupplier(suppMap['Hill Farmstead']),
+            prodMap['Susan'].setSupplier(suppMap['Hill Farmstead']),
+            prodMap['Incandenza'].setSupplier(suppMap['Hudson Valley Brewery']),
+            prodMap['Mirrorshield'].setSupplier(suppMap['Hudson Valley Brewery']),
+            prodMap['All Green Everything'].setSupplier(suppMap['Other Half Brewing Co.']),
+            prodMap['Double Mosaic Dream'].setSupplier(suppMap['Other Half Brewing Co.']),
+            prodMap['The Substance'].setSupplier(suppMap['Bissell Brothers Brewing Company']),
+            prodMap['Reciprocal'].setSupplier(suppMap['Bissell Brothers Brewing Company']),
+            prodMap['Heady Topper'].setSupplier(suppMap['The Alchemist']),
+            prodMap['Focal Banger'].setSupplier(suppMap['The Alchemist']),
+            prodMap['Gose'].setSupplier(suppMap['Westbrook Brewing Co.']),
+            prodMap['Mexican Cake'].setSupplier(suppMap['Westbrook Brewing Co.']),
+            prodMap['Anti-Hero'].setSupplier(suppMap['Revolution Brewing Company']),
+            prodMap['Eugene'].setSupplier(suppMap['Revolution Brewing Company']),
+            prodMap['Surette Provision Saison'].setSupplier(suppMap['Crooked Stave Artisan Beer Project']),
+            prodMap['Coffee Baltic Porter'].setSupplier(suppMap['Crooked Stave Artisan Beer Project']),
+            prodMap['Janiak Maniac'].setSupplier(suppMap['Kings County Brewers Collective']),
+            prodMap['Superhero Sidekicks'].setSupplier(suppMap['Kings County Brewers Collective']),
+            prodMap['Straight Jacket'].setSupplier(suppMap['Revolution Brewing Company']),
+            prodMap["Ellie's Brown Ale"].setSupplier(suppMap['Kings County Brewers Collective']),
+            User.create(users[0]), // for testing purposes
+            User.create(users[1]), // for testing purposes
+          ];
+          return Promise.all(associationArr).then(associationArr => associationArr);
         });
       });
     })
