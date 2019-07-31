@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { loginUser } from '../redux/reducers/user';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
