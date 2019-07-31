@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const db = require('../connection');
 
-const pending = 'PENDING';
-const complete = 'COMPLETE';
+const PENDING = 'PENDING';
+const COMPLETE = 'COMPLETE';
 const Order = db.define('order', {
   id: {
     type: Sequelize.UUID,
@@ -18,7 +18,7 @@ const Order = db.define('order', {
     },
   },
   status: {
-    type: Sequelize.ENUM(pending, complete),
+    type: Sequelize.ENUM(PENDING, COMPLETE),
     defaultValue: pending,
   },
 });

@@ -8,7 +8,9 @@
     "heroku-postbuild": "webpack -p",
     "test": "npm jest ./tests/setup.js ./tests/**/**/*.spec.js",
     "start:dev": "npx webpack src/index.js -o ./public/bundle.js --watch & npx nodemon ./server/index.js -q",
-    "test:dev": "npx jest ./tests/setup.js ./tests/**/**/*.spec.js --watch"
+    "test:dev": "npx jest ./tests/setup.js ./tests/**/**/*.spec.js --watch",
+    "test:one": "npx jest ./tests/setup.js ./tests/backend/*.spec.js --watch",
+    "seed": "node seed.js"
   },
   "dependencies": {
     "@material-ui/core": "^4.2.1",
