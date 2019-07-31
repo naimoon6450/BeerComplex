@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Enzyme, { shallow, mount } from 'enzyme';
+import enzyme, { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 // Enzyme requires adapter for usage
 const adapter = new Adapter();
-Enzyme.configure({ adapter });
+enzyme.configure({ adapter });
 
 // import component to test
 import Main from '../../../src/components/Main';

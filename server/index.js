@@ -3,7 +3,6 @@ const path = require('path');
 const db = require('./db/connection');
 const PORT = process.env.PORT || 8080;
 const app = express();
-const { seed } = require('../seed');
 const morgan = require('morgan');
 
 // express session requirements
@@ -14,18 +13,6 @@ const session = require('express-session');
 const createDbStore = require('connect-session-sequelize');
 const SequelizeStore = createDbStore(session.Store);
 
-const user = {
-  firstName: 'Bojack',
-  lastName: 'Horseman',
-  addressLine1: '123 Hollywoo Lane',
-  addressLine2: 'Apt 1A',
-  city: 'Hollywoo',
-  state: 'CA - California',
-  zipCode: '55555',
-  country: 'US',
-  phone: '5555555555',
-};
-
 // static middleware, body parsing middleware, logging middleware
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.json());
@@ -33,32 +20,23 @@ app.use(express.urlencoded({ extended: false })); // this helped me see req.body
 app.use(morgan(process.env.MORGAN_MODE || null));
 
 // middleware for session management
-app.use(
-  session({
-    name: SESH_NAME,
-    resave: false,
-    saveUninitialized: false,
-    secret: SESH_SECRET, // also create env var for this
-    cookie: {
-      maxAge: SESH_LIFETIME, // create env variable for SESH LIFETIME
-      sameSite: true,
-      secure: false, // if PROD change to true, create ENV var for this
-    },
-    store: new SequelizeStore({
-      db,
-      table: 'session',
-    }),
-  })
-);
-
-app.get('/home', (req, res, next) => {
-  console.log(req.session);
-  res.send(200);
-});
-
-app.post('/login', (req, res, next) => {
-  res.send(200);
-});
+// app.use(
+//   session({
+//     name: SESH_NAME,
+//     resave: false,
+//     saveUninitialized: false,
+//     secret: SESH_SECRET, // also create env var for this
+//     cookie: {
+//       maxAge: SESH_LIFETIME, // create env variable for SESH LIFETIME
+//       sameSite: true,
+//       secure: false, // if PROD change to true, create ENV var for this
+//     },
+//     store: new SequelizeStore({
+//       db,
+//       table: 'session',
+//     }),
+//   })
+// );
 
 // 'API' routes
 app.use('/api', require('./api'));
@@ -68,10 +46,8 @@ app.use('*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
 
-// db sync, seed, and app start, need to come back to this later as we don't want to drop tables upon start
-db.sync({ force: true })
+db.sync()
   .then(() => {
-    seed();
     app.listen(PORT, () => {
       console.log(`Server listening on PORT: ${PORT}`);
     });
