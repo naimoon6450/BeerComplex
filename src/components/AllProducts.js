@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchAllProducts } from '../redux/reducers/product';
+import { fetchAllProducts, addProductToCart } from '../redux/reducers/product';
 
+//add material iu and make grid for all products
 class AllProducts extends React.Component {
   componentDidMount() {
     this.props.fetchProducts();
@@ -17,9 +18,9 @@ class AllProducts extends React.Component {
           return (
             <li key={product.id}>
               <ul
-                onClick={() => {
-                  console.log('Product:', product);
-                }}
+                onClick={
+                  () => <Product /> //redirect to single product view component
+                }
               >
                 <li>Name: {product.name}</li>
                 <li>
@@ -33,7 +34,8 @@ class AllProducts extends React.Component {
               <button
                 type="button"
                 onClick={() => {
-                  console.log('Added to cart');
+                  this.props.addToCart(product);
+                  console.log('Added to cart'); //add product to cart
                 }}
               >
                 Add to Cart
@@ -55,6 +57,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchProducts: () => dispatch(fetchAllProducts()),
+    addToCart: product => dispatch(addProductToCart(product)),
   };
 };
 
