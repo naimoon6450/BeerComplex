@@ -1,10 +1,6 @@
 const router = require('express').Router();
 const { User } = require('../../db/index');
 
-app.get('/health', (req, res, next) => {
-  res.json(req.session);
-});
-
 router.post('/login', (req, res, next) => {
   const { email, password } = req.body;
   User.findAll({ where: { email: email, password: password } })

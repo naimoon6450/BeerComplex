@@ -4,10 +4,11 @@ const db = require('./db/connection');
 const PORT = process.env.PORT || 8080;
 const app = express();
 const morgan = require('morgan');
+// const cookieParser = require('cookie-parser');
 
 // express session requirements
 const SESH_LIFETIME = 1000 * 60 * 60 * 2; // store in env file
-const SESH_NAME = 'SID'; // store in env file
+const SESH_NAME = 'sid'; // store in env file
 const SESH_SECRET = 'somegoodSecret'; // store in env file
 const session = require('express-session');
 const createDbStore = require('connect-session-sequelize');
@@ -20,17 +21,16 @@ app.use(morgan(process.env.MORGAN_MODE || null));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // middleware for session management
-
+// app.use(cookieParser());
 app.use(
   session({
     name: SESH_NAME,
     resave: false,
     saveUninitialized: false,
     secret: SESH_SECRET, // also create env var for this
+    rolling: true,
     cookie: {
       maxAge: SESH_LIFETIME, // create env variable for SESH LIFETIME
-      sameSite: true,
-      secure: false, // if PROD change to true, create ENV var for this
     },
     store: new SequelizeStore({
       db,
@@ -46,6 +46,14 @@ app.use(
 
 // 'API' routes
 app.use('/api', require('./api'));
+
+app.get('/health', (req, res, next) => {
+  console.log(req.cookie);
+  res.json({
+    sessionId: req.session.id,
+    session: req.session,
+  });
+});
 
 // send index.html
 app.use('*', (req, res, next) => {
