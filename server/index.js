@@ -52,7 +52,7 @@ app.use('*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
 
-db.sync()
+db.sync({force: true})
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server listening on PORT: ${PORT}`);

@@ -30,22 +30,22 @@ const users = [
   },
 ];
 
-// const sessions = [
-//   { sessionId: `SID=${Date.now()}`},
-//   { sessionId: `SID=${Date.now() * 1500}`},
-// ];
+const sessions = [
+  { sessionId: `SID=${Date.now()}`},
+  { sessionId: `SID=${Date.now() * 1500}`},
+];
 
-// const orderProducts = [
-//   { productQuantity: 2 },
-//   { productQuantity: 3 },
-//   { productQuantity: 1 },
-//   { productQuantity: 2 },
-// ]
+const orderProducts = [
+  { productQuantity: 2 },
+  { productQuantity: 3 },
+  { productQuantity: 1 },
+  { productQuantity: 2 },
+]
 
-// const order = [
-//   {orderTotal: 30, status: 'COMPLETED'},
-//   {orderTotal: 25, status: 'PENDING'},
-// ]
+const orders = [
+  {orderTotal: 30, status: 'COMPLETE'},
+  {orderTotal: 25, status: 'PENDING'},
+]
 
 const categories = [
   { name: 'Barleywine' },
@@ -264,6 +264,14 @@ const seed = () => {
             prodMap["Ellie's Brown Ale"].setSupplier(suppMap['Kings County Brewers Collective']),
             User.create(users[0]), // for testing purposes
             User.create(users[1]), // for testing purposes
+            Session.create(sessions[0]),
+            Session.create(sessions[1]),
+            Order.create(orders[0]),
+            Order.create(orders[1]),
+            OrderProduct.create(orderProducts[0]),
+            OrderProduct.create(orderProducts[1]),
+            OrderProduct.create(orderProducts[2]),
+            OrderProduct.create(orderProducts[3]),
           ];
           return Promise.all(associationArr).then(associationArr => associationArr);
         });
@@ -279,6 +287,7 @@ const seed = () => {
       db.close();
       return null;
     });
+})
 };
 
 seed();

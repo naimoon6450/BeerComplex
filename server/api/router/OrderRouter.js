@@ -1,17 +1,34 @@
 const router = require('express').Router();
-const { Order, User, OrderProduct } = require('../../db/index');
+const { Order, User, OrderProduct, Product } = require('../../db/index');
 
 // API/orders
 router.get('/', async (req, res) => {
   try {
-    const orders = await Order.findAll();
+    const orders = await Order.findAll({include: [{model: Product, through: {attributes: ['productQuantity']}}]});
     res.json(orders);
   } catch (e) {
-    console.log(e => console.error('Could not get Orders from database', e));
-    res.sendStatus(500);
-    //res.redirect('/')
+    console.error(e);
   }
 });
+
+router.post('/', async (req, res) => {
+  try {
+    const { id, user, session, orderTotal, product } = req.body;
+    const order = await Order.create({id, orderTotal});
+    await order.setSession(session);
+    if (user.id) {
+      await order.setUser(user);
+    }
+    const orderProducts = await OrderProduct.create();
+    await orderProducts.addOrder(order);
+    await orderProducts.addProduct(product);
+    const joinedOrder = Order.findByPk(order.id, {include: [OrderProduct]});
+    res.json(joinedOrder);
+  } catch (e) {
+    console.error(e);
+  }
+});
+
 
 // /api/orders/:id (specific order, which includes products)
 router.get('/orders/:id', async (req, res) => {
