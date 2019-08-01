@@ -14,10 +14,10 @@ const createDbStore = require('connect-session-sequelize');
 const SequelizeStore = createDbStore(session.Store);
 
 // static middleware, body parsing middleware, logging middleware
-app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // this helped me see req.body
 app.use(morgan(process.env.MORGAN_MODE || null));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // middleware for session management
 
@@ -52,7 +52,11 @@ app.use('*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
 
-db.sync({force: true})
+app.use((error, req, res, next) => {
+  res.status(404).send(error);
+});
+
+db.sync()
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server listening on PORT: ${PORT}`);

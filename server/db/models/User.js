@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../connection');
 
-const User = db.define('user', {
+const User = db.define('User', {
   id: {
     type: Sequelize.UUID,
     allowNull: false,
@@ -24,18 +24,18 @@ const User = db.define('user', {
   },
   addressLine1: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
       notEmpty: true,
     },
   },
   addressLine2: {
     type: Sequelize.STRING,
-    validate: {
-      notEmpty: true,
-    },
+    allowNull: true,
   },
   city: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
       notEmpty: true,
     },
@@ -104,15 +104,16 @@ const User = db.define('user', {
     validate: {
       notEmpty: true,
       isNumeric: true,
-      len: [5],
+      len: [5, 5],
     },
   },
   country: {
-    type: Sequelize.STRING,
-    validate: {
-      notEmpty: true,
-      isAlpha: true,
-    },
+    type: Sequelize.ENUM(['United States of America']),
+    // allowNull: false,
+    // validate: {
+    //   notEmpty: true,
+    //   isAlpha: true,
+    // },
   },
   phone: {
     type: Sequelize.STRING,
