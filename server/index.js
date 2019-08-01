@@ -17,6 +17,7 @@ const SequelizeStore = createDbStore(session.Store);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // this helped me see req.body
 app.use(morgan(process.env.MORGAN_MODE || null));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // middleware for session management
 
@@ -46,10 +47,13 @@ app.use(
 // 'API' routes
 app.use('/api', require('./api'));
 
-app.use(express.static(path.join(__dirname, '..', 'public')));
 // send index.html
 app.use('*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '..', 'public/index.html'));
+});
+
+app.use((error, req, res, next) => {
+  res.status(404).send(error);
 });
 
 db.sync()
