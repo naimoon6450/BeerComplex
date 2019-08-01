@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx webpack src/index.js -o ./public/bundle.js --watch & npx nodemon ./server/index.js -q",
-    "test": "npx jest ./tests/setup.js ./tests/**/**/*.spec.js --watch"
+    "start": "node server/index.js",
+    "build": "webpack -p",
+    "test": "npm jest ./tests/setup.js ./tests/**/*.spec.js",
+    "start:dev": "npx webpack src/index.js -o ./public/bundle.js --watch & npx nodemon ./server/index.js -q",
+    "test:dev": "npx jest ./tests/setup.js ./tests/**/*.spec.js --watch",
+    "seed": "node seed.js"
   },
   "dependencies": {
     "@material-ui/core": "^4.2.1",

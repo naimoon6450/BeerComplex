@@ -1,4 +1,4 @@
 const db = require('../server/db/connection');
-beforeEach(() => db.sync({ force: true }));
-afterEach(() => db.sync({ force: true }));
-afterAll(() => db.close());
+beforeAll(async () => await db.sync({ force: true }));
+afterEach(async () => await db.sync({ force: true }));
+afterAll(async () => await db.close());
