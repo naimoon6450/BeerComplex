@@ -108,7 +108,7 @@ const User = db.define('User', {
     },
   },
   country: {
-    type: Sequelize.ENUM(countries),
+    type: Sequelize.ENUM(['United States of America']),
     // allowNull: false,
     // validate: {
     //   notEmpty: true,
