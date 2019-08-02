@@ -21,29 +21,6 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // middleware for session management
 
-app.use(
-  session({
-    name: SESH_NAME,
-    resave: false,
-    saveUninitialized: false,
-    secret: SESH_SECRET, // also create env var for this
-    cookie: {
-      maxAge: SESH_LIFETIME, // create env variable for SESH LIFETIME
-      sameSite: true,
-      secure: false, // if PROD change to true, create ENV var for this
-    },
-    store: new SequelizeStore({
-      db,
-      table: 'session',
-      extendDefaultFields: (defaults, session) => ({
-        data: defaults.data,
-        expires: defaults.expires,
-        userId: session.userId,
-      }),
-    }),
-  })
-);
-
 // 'API' routes
 app.use('/api', require('./api'));
 

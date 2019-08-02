@@ -2,10 +2,6 @@ import React from 'react';
 import enzyme, { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Provider } from 'react-redux';
-import configureMockStore from 'redux-mock-store';
-
-const mockStore = configureMockStore();
-const store = mockStore({});
 
 // Enzyme requires adapter for usage
 const adapter = new Adapter();
@@ -33,7 +29,7 @@ describe('All Products Page', () => {
 
   describe('<AllProducts /> component', () => {
     it('renders a list of products', () => {
-      const allProdWrapper = shallow(<AllProducts store={store} />);
+      const allProdWrapper = shallow(<AllProducts />);
       console.log(wrapper);
     });
 
