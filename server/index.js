@@ -28,10 +28,6 @@ app.use(
     resave: false,
     saveUninitialized: false,
     secret: SESH_SECRET, // also create env var for this
-    rolling: true,
-    cookie: {
-      maxAge: SESH_LIFETIME, // create env variable for SESH LIFETIME
-    },
     store: new SequelizeStore({
       db,
       table: 'session',
