@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { loginUser } from '../redux/reducers/user';
-import { Route } from 'react-router-dom';
+import { postLogin } from '../redux/reducers/user';
 import { connect } from 'react-redux';
-import { Home } from './index';
 
-import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -17,7 +15,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import theme from '../themes';
 
-const useStyles = makeStyles(theme => ({
+const styles = makeStyles({
   body: {
     backgroundColor: theme.palette.common.white,
   },
@@ -34,81 +32,94 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
+});
 
-const Login = props => {
-  const { handleSubmit } = props;
-  const classes = useStyles();
-  return (
-    <Container component='main' maxWidth='xs'>
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Typography component='h1' variant='h5'>
-          Sign Up
-        </Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                variant='outlined'
-                required
-                fullWidth
-                id='email'
-                label='Email Address'
-                name='email'
-                autoComplete='email'
-              />
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: null,
+      password: null,
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit (event) {
+    event.preventDefault();
+    this.props.postLogin(this.state);
+    this.setState({
+      email: null,
+      password: null,
+    });
+    this.props.history.push('/products');
+  }
+
+  handleChange (event) {
+    this.setState({[event.target.name]: event.target.value});
+  }
+
+  render () {
+    const classes = styles;
+    return (
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Typography component="h1" variant="h5">
+            Sign Up
+          </Typography>
+          <form className={classes.form} onSubmit={this.handleSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  onChange={this.handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  onChange={this.handleChange}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant='outlined'
-                required
-                fullWidth
-                name='password'
-                label='Password'
-                type='password'
-                id='password'
-                autoComplete='current-password'
-              />
+            <MuiThemeProvider theme={theme}>
+              <Button type="submit" fullWidth variant="contained" color="secondary" className={classes.submit}>
+                Log In
+              </Button>
+            </MuiThemeProvider>
+            <Grid container justify="flex-end">
+              <Grid item>
+                <Link href="/signup" variant="body2">
+                  Don't have an account? Sign Up
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
-          <MuiThemeProvider theme={theme}>
-            <Button type='submit' fullWidth variant='contained' color='secondary' className={classes.submit}>
-              Log In
-            </Button>
-          </MuiThemeProvider>
-          <Grid container justify='flex-end'>
-            <Grid item>
-              <Link href='/signup' variant='body2'>
-                Don't have an account? Sign Up
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
-  );
-};
+          </form>
+        </div>
+      </Container>
+    );
+  }
+}
 
-// proptypes to do typechecking
-Login.propTypes = {
-  handleSubmit: PropTypes.func,
-};
+const mapDispatchToProps = dispatch => ({
+  postLogin: (user) => {
+    dispatch(postLogin(user));
+}
+});
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    handleSubmit: evt => {
-      evt.preventDefault();
-      const userDetails = {
-        email: evt.target.email.value,
-        password: evt.target.password.value,
-      };
-      dispatch(loginUser(userDetails, ownProps.history.history));
-    },
-  };
-};
+const StyledLogin = withStyles(styles)(Login);
+const ConnectedLogin = connect(null, mapDispatchToProps)(StyledLogin);
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(Login);
+export default ConnectedLogin;

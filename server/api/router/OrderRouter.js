@@ -12,21 +12,19 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  try {
-    const { id, user, session, orderTotal, product } = req.body;
-    const order = await Order.create({id, orderTotal});
-    await order.setSession(session);
-    if (user.id) {
-      await order.setUser(user);
-    }
-    const orderProducts = await OrderProduct.create();
-    await orderProducts.addOrder(order);
-    await orderProducts.addProduct(product);
-    const joinedOrder = Order.findByPk(order.id, {include: [OrderProduct]});
-    res.json(joinedOrder);
-  } catch (e) {
-    console.error(e);
-  }
+//   try {
+//     const { id, user, session, orderTotal, product } = req.body;
+//     const order = await Order.create({id, orderTotal});
+//     if (req.userId) {
+//       await Order.update{(user);
+//     }
+//     const orderProducts = await OrderProduct.create();
+//     await order.addProduct
+//     const joinedOrder = Order.findByPk(order.id, {include: [OrderProduct]});
+//     res.json(joinedOrder);
+//   } catch (e) {
+//     console.error(e);
+//   }
 });
 
 

@@ -7,13 +7,12 @@ class Main extends React.Component {
     return (
       <div>
         <Navbar />
-        <div id='main'>
+        <div id="main">
           <Switch>
-            <Route path='/login' render={history => <Login history={history} />} />
-            <Route path='/signup' component={SignUp} />
-            {/* temp fix: rendering removes 'Failed prop type: Invalid prop `component` of type `object` supplied to `Route`, expected `function`. */}
-            <Route path='/products' render={() => <AllProducts />} />
-            <Route path='/home' render={history => <Home history={history} />} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/products" component={AllProducts} />
+            <Route path="/home" component={AllProducts} />
           </Switch>
         </div>
       </div>

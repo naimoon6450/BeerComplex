@@ -4,6 +4,7 @@ import axios from 'axios';
 const PRODUCT_REQUEST = 'PRODUCT_REQUEST';
 const PRODUCT_REQUEST_FAILURE = 'PRODUCT_REQUEST_FAILURE';
 const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
+const CHECK_FOR_PENDING_ORDER = 'CHECK_FOR_PENDING_ORDER';
 const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
 
 // Action Creators
@@ -22,6 +23,11 @@ const fetchingProductDataError = error => ({
   payload: error,
 });
 
+const checkPendingOrder = sessionId => ({
+  type: CHECK_FOR_PENDING_ORDER,
+  sessionId,
+})
+
 export const addProductToCart = product => {
   return {
     type: ADD_PRODUCT_TO_CART,
@@ -38,6 +44,21 @@ export const fetchAllProducts = () => dispatch => {
     .then(products => dispatch(getAllProducts(products)))
     .catch(error => dispatch(fetchingProductDataError(error)));
 };
+
+export const fetchOrCreateOrder = () => dispatch => {
+  // use the cookie to fetch the session from db?
+  // fetch the session
+  // Order.findOne({where: sessionId, status: 'PENDING'})
+  // if no order, Order.create
+  //if order, return order
+}
+
+export const addProductToOrder = () => dispatch => {
+  // takes order id and product id
+  // check if that product already exists in this order
+  // if exists, increase quantity by 1
+  // if it doesn't exist, OrderProduct.create(orderId, productId, productQuantity: 1)
+}
 
 // Reducers
 const initialState = {
