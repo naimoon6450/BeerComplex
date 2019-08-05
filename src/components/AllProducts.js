@@ -19,7 +19,16 @@ class AllProducts extends React.Component {
             <li key={product.id}>
               <ul
                 onClick={
-                  () => <Product /> //redirect to single product view component
+                  () => {
+                    return (
+                      <Redirect
+                        to={`/porduct/${product.id}`}
+                        render={history => (
+                          <Product history={history} product={product} />
+                        )}
+                      />
+                    );
+                  } //redirect to single product view component
                 }
               >
                 <li>Name: {product.name}</li>
