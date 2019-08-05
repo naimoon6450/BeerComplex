@@ -14,9 +14,9 @@ const createDbStore = require('connect-session-sequelize');
 const SequelizeStore = createDbStore(session.Store);
 
 // static middleware, body parsing middleware, logging middleware
+app.use(morgan(process.env.MORGAN_MODE || null));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // this helped me see req.body
-app.use(morgan(process.env.MORGAN_MODE || null));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 // middleware for session management
 

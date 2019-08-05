@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Navbar, Login, SignUp, AllProducts, Home } from './index';
+import { Navbar, Login, SignUp, AllProducts, Home, SingleProductView } from './index';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from '../themes';
 
@@ -13,21 +13,14 @@ class Main extends React.Component {
       <div>
         <MuiThemeProvider theme={theme}>
           <Navbar />
-          <Particles className="particles" params={partOptions} />
-          <div id="main">
+          <Particles className='particles' params={partOptions} />
+          <div id='main'>
             <Switch>
-              <Route exact path="/" render={() => <AllProducts />} />
-              <Route
-                path="/login"
-                render={history => <Login history={history} />}
-              />
-              <Route path="/signup" component={SignUp} />
-              {/* temp fix: rendering removes 'Failed prop type: Invalid prop `component` of type `object` supplied to `Route`, expected `function`. */}
-              <Route exact path="/" render={() => <AllProducts />} />
-              <Route
-                path="/home"
-                render={history => <Home history={history} />}
-              />
+              <Route exact path='/' render={() => <AllProducts />} />
+              <Route path='/login' render={history => <Login history={history} />} />
+              <Route path='/signup' component={SignUp} />
+              <Route path='/home' render={history => <Home history={history} />} />
+              <Route path='/products/:id' component={SingleProductView} />
             </Switch>
           </div>
         </MuiThemeProvider>
