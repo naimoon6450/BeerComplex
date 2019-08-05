@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { postSignup } from '../redux/reducers/user';
+import { convertEmptyToNull } from '../../utils';
 
 import { withStyles, makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -37,35 +38,35 @@ class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: null,
-      lastName: null,
-      email: null,
-      password: null,
-      address1: null,
-      address2: null,
-      city: null,
-      state: null,
-      zipCode: null,
-      phone: null,
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      address1: '',
+      address2: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      phone: '',
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit (event) {
+  async handleSubmit (event) {
     event.preventDefault();
-    this.props.postSignup(this.state);
+    await this.props.postSignup(convertEmptyToNull(this.state));
     this.setState({
-      firstName: null,
-      lastName: null,
-      email: null,
-      password: null,
-      address1: null,
-      address2: null,
-      city: null,
-      state: null,
-      zipCode: null,
-      phone: null,
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      address1: '',
+      address2: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      phone: '',
     });
     this.props.history.push('/products');
   }
@@ -242,7 +243,7 @@ class SignUp extends React.Component {
 const mapDispatchToProps = dispatch => ({
   postSignup: (user) => {
     dispatch(postSignup(user));
-}
+},
 })
 
 const StyledSignUp = withStyles(styles)(SignUp);

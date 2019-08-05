@@ -37,12 +37,15 @@ const [session, wasCreated] = await Session.findOrCreate({where: {sid}});
 if (!session) {
 console.error('Could not find session');
 } else if (session.userId) {
-    req.userId = session.userId;
-    console.log('Found user', session.userId);
+    const user = await User.findByPk(session.userId);
+    req.userId = user.id;
+    req.userType = user.type;
+    console.log('Found user', session.userId, 'req.userId:', req.userId, 'req.userType:', req.userType);
   } else {
-    const guestUser = await User.create({type: 'guest'});
-    await session.update({userId: guestUser.id})
-    req.userId = guestUser.id
+    const guestUser = await User.create({});
+    await session.update({userId: guestUser.id});
+    req.userId = guestUser.id;
+    console.log('Guest user created', guestUser.id);
   }
 next();
 })
@@ -60,7 +63,7 @@ app.use((error, req, res, next) => {
   res.status(404).send(error);
 });
 
-db.sync({force: true})
+db.sync({force: process.env.DB_FORCE === 'true'})
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server listening on PORT: ${PORT}`);

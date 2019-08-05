@@ -129,11 +129,6 @@ const User = db.define('user', {
       len: [8, 24],
     },
   },
-  loggedIn: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-    defaultValue: false,
-  }
 });
 
 module.exports = User;

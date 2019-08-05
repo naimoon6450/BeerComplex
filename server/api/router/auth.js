@@ -1,5 +1,11 @@
 const router = require('express').Router();
-const { User } = require('../../db/index');
+const { User, Session } = require('../../db/index');
+
+// check auth status
+router.get('/', (req, res) => {
+  console.log('request', req.userId, req.userType);
+  res.send({ loggedIn: typeof req.userId === 'string' && req.userType === 'registered' });
+});
 
 router.post('/login', async (req, res) => {
   try {
@@ -9,13 +15,22 @@ router.post('/login', async (req, res) => {
               if (!user) {
                   res.sendStatus(401);
                   console.log('Log in failed; invalid credentials');
-              } else if (user.loggedIn) {
+              } else if (req.userId && req.userType === 'registered') {
                 res.sendStatus(200);
                 console.log('Already logged in as:', user.id);
-                } else {
-                const loggedInUser = await user.update({loggedIn: true});
-                res.json(loggedInUser);
-                console.log('Logged in sucessfully as:', user.id);
+              } else {
+                  const userSession = await Session.findByPk(req.session.id);
+
+                  if (userSession.userId) {
+                    await userSession.destroy();
+                    await Session.create({sid: req.session.id, userId: user.id})
+                  } else {
+                    await userSession.update({ userId: user.id });
+                  }
+                  res.json(user);
+                  req.userId = user.id;
+                  req.userType = user.type;
+                  console.log('Logged in sucessfully as:', user.id);
               }
       } else {
         res.sendStatus(500)
@@ -30,7 +45,7 @@ router.post('/login', async (req, res) => {
 router.post('/signup', async (req, res) => {
   try {
       const guestUser = await User.findOne({where: {id: req.userId}});
-      const { firstName, lastName, email, password, addressLine1, addressLine2, city, state, zipcode, phone } = req.body;
+      const { firstName, lastName, email, password, addressLine1, addressLine2, city, state, zipCode, phone } = req.body;
 
       if (firstName && lastName && email && password) {
           const user = await User.findOne({ where: { email } });
@@ -38,8 +53,9 @@ router.post('/signup', async (req, res) => {
                   res.sendStatus(401);
                   console.log('Email already exists in the system');
               } else {
-                  const registeredUser = await guestUser.update({type: 'registered', loggedIn: true, firstName, lastName, email, password, addressLine1, addressLine2, city, state, zipcode, phone});
+                  const registeredUser = await guestUser.update({type: 'registered', firstName, lastName, email, password, addressLine1, addressLine2, city, state, zipCode, phone});
                   res.json(registeredUser);
+                  req.userType = registeredUser.type;
                   console.log('Signed up and logged in as:', registeredUser.id);
               }
       } else {
@@ -52,20 +68,23 @@ router.post('/signup', async (req, res) => {
 });
 
 router.post('/logout', async (req, res) => {
-  try {
-  const user = await User.findOne({where: {id: req.userId}});
-    if (user) {
-      const loggedOutUser = await user.update({loggedIn: false});
-      res.json(loggedOutUser);
-      console.log('Logged out successfully');
-    } else {
-      res.sendStatus(500);
-      console.log('User not found for logout');
-    }
-  } catch (e) {
+try {
+// Clear the session from the database.
+const session = await Session.findByPk(req.session.id);
+await session.destroy();
+// Clear the session from memory...
+req.session.destroy(err => {
+  if (err) {
     res.sendStatus(500);
-    console.log('Error logging out', e);
+  } else {
+    res.clearCookie(process.env.SESH_NAME);
+    res.redirect('/');
   }
+});
+} catch (e) {
+  res.sendStatus(500);
+  console.log('Error logging out', e);
+}
 });
 
 module.exports = router;

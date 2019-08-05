@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { postLogout } from '../redux/reducers/user';
 
 // Material UI requirements
@@ -25,18 +25,16 @@ import theme from '../themes';
 class Navbar extends React.Component {
   render () {
     // const classes = styles;
-    const { loggedInUser, postLogout, loggedIn } = this.props;
+    const { logout, loggedIn } = this.props;
     return (
       <div> {/*<div className={classes.root}></div>*/}
         <MuiThemeProvider theme={theme}>
           <AppBar position="static" color="secondary">
             <Toolbar>
-              <Typography variant="h6" color="inherit"> {/*className={classes.title}>*/}
-                SHOP CITY
-              </Typography>
+            <Button component={Link} to="/" color="inherit">SHOP CITY</Button>
               {loggedIn ?
               <div>
-              <Button color="inherit" onClick={() => postLogout(loggedInUser)}>Logout</Button>
+              <Button color="inherit" onClick={() => logout()}>Logout</Button>
               <IconButton
                 edge="end"
                 aria-label="Account of current user"
@@ -63,13 +61,14 @@ const mapStateToProps = state => ({
   loggedIn: state.users.loggedIn,
 })
 
-const mapDispatchToProps = dispatch => ({
-  postLogout: (user) => {
-    dispatch(postLogout(user));
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  logout: () => {
+    console.log(ownProps);
+    dispatch(postLogout(ownProps.history));
 }
 })
 
 // const StyledNavbar = withStyles(styles)(Navbar);
 const ConnectedNavbar = connect(mapStateToProps, mapDispatchToProps)(Navbar);
 
-export default ConnectedNavbar;
+export default withRouter(ConnectedNavbar);

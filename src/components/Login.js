@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { postLogin } from '../redux/reducers/user';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { convertEmptyToNull } from '../../utils';
 
 import { makeStyles, withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -38,19 +40,19 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: null,
-      password: null,
+      email: '',
+      password: '',
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit (event) {
+  async handleSubmit (event) {
     event.preventDefault();
-    this.props.postLogin(this.state);
+    await this.props.postLogin(convertEmptyToNull(this.state));
     this.setState({
-      email: null,
-      password: null,
+      email: '',
+      password: '',
     });
     this.props.history.push('/products');
   }
@@ -122,4 +124,4 @@ const mapDispatchToProps = dispatch => ({
 const StyledLogin = withStyles(styles)(Login);
 const ConnectedLogin = connect(null, mapDispatchToProps)(StyledLogin);
 
-export default ConnectedLogin;
+export default withRouter(ConnectedLogin);
