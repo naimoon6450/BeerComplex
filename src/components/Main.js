@@ -17,15 +17,12 @@ class Main extends React.Component {
   componentDidMount () {
     // getAuthStatus hits /api/auth and puts on the store
     this.getAuthStatus();
-    console.log('main mounting');
   }
   componentDidUpdate() {
     // getAuthStatus hits /api/auth and puts on the store
     this.getAuthStatus();
-    console.log('main updating');
   }
   render() {
-    console.log('main rendering');
     return (
       <div>
         <Navbar />

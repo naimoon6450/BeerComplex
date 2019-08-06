@@ -31,23 +31,28 @@ app.use(expressSession({
 }));
 
 app.use(async (req, res, next) => {
-const sid = req.session.id;
-const [session, wasCreated] = await Session.findOrCreate({where: {sid}});
+  const sid = req.session.id;
 
-if (!session) {
-console.error('Could not find session');
-} else if (session.userId) {
-    const user = await User.findByPk(session.userId);
-    req.userId = user.id;
-    req.userType = user.type;
-    console.log('Found user', session.userId, 'req.userId:', req.userId, 'req.userType:', req.userType);
+  if (req.session.userId) {
+    console.log('User already in memory:', req.session.userType, req.session.userId);
   } else {
-    const guestUser = await User.create({});
-    await session.update({userId: guestUser.id});
-    req.userId = guestUser.id;
-    console.log('Guest user created', guestUser.id);
+    const [session, wasCreated] = await Session.findOrCreate({where: {sid}});
+
+    if (session.userId) {
+      const user = await User.findByPk(session.userId);
+      req.session.userId = user.id;
+      req.session.userType = user.type;
+      console.log('Found user', session.userId, 'req.userId:', req.userId, 'req.userType:', req.userType);
+    } else {
+      const guestUser = await User.create({});
+      await session.update({userId: guestUser.id});
+      req.userId = guestUser.id;
+      console.log('Guest user created', guestUser.id);
+    }
   }
-next();
+
+  next();
+
 })
 app.use(express.static(path.join(__dirname, '..', 'public')));
 

@@ -3,8 +3,8 @@ const { User, Session } = require('../../db/index');
 
 // check auth status
 router.get('/', (req, res) => {
-  console.log('request', req.userId, req.userType);
-  res.send({ loggedIn: typeof req.userId === 'string' && req.userType === 'registered' });
+  console.log('request', req.session.userId, req.session.userType);
+  res.send({ loggedIn: typeof req.session.userId === 'string' && req.session.userType === 'registered' });
 });
 
 router.post('/login', async (req, res) => {
@@ -15,22 +15,17 @@ router.post('/login', async (req, res) => {
               if (!user) {
                   res.sendStatus(401);
                   console.log('Log in failed; invalid credentials');
-              } else if (req.userId && req.userType === 'registered') {
+              } else if (req.session.userId && req.session.userType === 'registered') {
                 res.sendStatus(200);
                 console.log('Already logged in as:', user.id);
               } else {
-                  const userSession = await Session.findByPk(req.session.id);
+                  const guestUserSession = await Session.findByPk(req.session.id);
+                  await guestUserSession.update({
+                    userId: user.id,
+                  });
 
-                  if (userSession.userId) {
-                    await userSession.destroy();
-                    await Session.create({sid: req.session.id, userId: user.id})
-                  } else {
-                    await userSession.update({ userId: user.id });
-                  }
-                  res.json(user);
-                  req.userId = user.id;
-                  req.userType = user.type;
-                  console.log('Logged in sucessfully as:', user.id);
+                  req.session.userType = 'registered';
+                  res.redirect('/');
               }
       } else {
         res.sendStatus(500)
@@ -44,7 +39,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
   try {
-      const guestUser = await User.findOne({where: {id: req.userId}});
+      const guestUser = await User.findOne({where: {id: req.session.userId}});
       const { firstName, lastName, email, password, addressLine1, addressLine2, city, state, zipCode, phone } = req.body;
 
       if (firstName && lastName && email && password) {
@@ -54,16 +49,16 @@ router.post('/signup', async (req, res) => {
                   console.log('Email already exists in the system');
               } else {
                   const registeredUser = await guestUser.update({type: 'registered', firstName, lastName, email, password, addressLine1, addressLine2, city, state, zipCode, phone});
-                  res.json(registeredUser);
-                  req.userType = registeredUser.type;
                   console.log('Signed up and logged in as:', registeredUser.id);
+                  req.session.userType = 'registered';
+                  res.redirect('/');
               }
       } else {
         res.sendStatus(500);
         console.log('Required fields missing for signup');
       }
   } catch (e) {
-      console.log('Error logging in', e);
+      console.log('Error signing up', e);
   }
 });
 

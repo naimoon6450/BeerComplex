@@ -22,11 +22,24 @@ const setAuthStatus = authStatus => ({
 
 // Thunks
 
+export const fetchAuthStatus = () => dispatch => {
+  return axios.get('api/auth')
+  .then(res => {
+    console.log('fetchAuthStatus thunk', res.data.loggedIn);
+    dispatch(setAuthStatus(res.data.loggedIn))
+  })
+  .catch(e => console.log(e))
+}
+
 export const postLogin = user => dispatch => {
   axios
   .post('api/auth/login', user)
   .then(res => {
     dispatch(setLoggedInUser(res.data));
+    return fetchAuthStatus()(dispatch);
+  })
+  .then(() => {
+    console.log('Login and Auth check success.')
   })
   .catch(e => console.error(e));
 }
@@ -44,15 +57,6 @@ export const postLogout = history => dispatch => {
   .then(() => {
     dispatch(clearLoggedInUser());
     history.push('/products');
-  })
-  .catch(e => console.log(e))
-}
-
-export const fetchAuthStatus = () => dispatch => {
-  axios.get('api/auth')
-  .then(res => {
-    console.log('fetchAuthStatus thunk', res.data.loggedIn);
-    dispatch(setAuthStatus(res.data.loggedIn))
   })
   .catch(e => console.log(e))
 }
