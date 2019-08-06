@@ -2,9 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchAllProducts, addProductToCart } from '../redux/reducers/product';
+<<<<<<< HEAD
 import { withStyles } from '@material-ui/core/styles';
 import Product from './Product';
 
+=======
+import { FrontBanner, SingleProduct } from './index';
+import { Grid } from '@material-ui/core';
+>>>>>>> 55579b264fa406da0cffe92442ffcd63b17f89ab
 //add material iu and make grid for all products
 const styles = {};
 
@@ -16,38 +21,23 @@ class AllProducts extends React.Component {
   render() {
     const { products } = this.props;
     return (
-      <ul>
-        {products.map(product => {
-          const { supplier, category } = product;
-          return (
-            <li key={product.id}>
-              <ul
-                onClick={
-                  () => <Product /> //redirect to single product view component
-                }
-              >
-                <li>Name: {product.name}</li>
-                <li>
-                  <img src={product.imageUrl} className="product-image" />
-                </li>
-                <li>Category: {category.name}</li>
-                <li>Description: {product.description}</li>
-                <li>Price: ${product.price}</li>
-                <li>Brewery: {supplier.name}</li>
-              </ul>
-              <button
-                type="button"
-                onClick={() => {
-                  this.props.addToCart(product);
-                  console.log('Added to cart'); //add product to cart
-                }}
-              >
-                Add to Cart
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+      // Will have banner here
+      <div>
+        <FrontBanner />
+        <Grid container spacing={10} justify="center">
+          {products.map(product => {
+            const { supplier, category } = product;
+            return (
+              <SingleProduct
+                key={product.id}
+                product={product}
+                supplier={supplier}
+                category={category}
+              />
+            );
+          })}
+        </Grid>
+      </div>
     );
   }
 }

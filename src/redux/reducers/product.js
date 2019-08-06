@@ -6,11 +6,17 @@ const PRODUCT_REQUEST_FAILURE = 'PRODUCT_REQUEST_FAILURE';
 const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 const CHECK_FOR_PENDING_ORDER = 'CHECK_FOR_PENDING_ORDER';
 const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
+const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT';
 
 // Action Creators
 const getAllProducts = products => ({
   type: GET_ALL_PRODUCTS,
   products,
+});
+
+const getSingleProduct = product => ({
+  type: GET_SINGLE_PRODUCT,
+  product,
 });
 
 const fetchingProductData = () => ({
@@ -45,6 +51,7 @@ export const fetchAllProducts = () => dispatch => {
     .catch(error => dispatch(fetchingProductDataError(error)));
 };
 
+<<<<<<< HEAD
 export const fetchOrCreateOrder = () => dispatch => {
   // use the cookie to fetch the session from db?
   // fetch the session
@@ -59,10 +66,20 @@ export const addProductToOrder = () => dispatch => {
   // if exists, increase quantity by 1
   // if it doesn't exist, OrderProduct.create(orderId, productId, productQuantity: 1)
 }
+=======
+export const fetchSingleProduct = prodId => dispatch => {
+  axios
+    .get(`/api/products/${prodId}`)
+    .then(res => res.data)
+    .then(product => dispatch(getSingleProduct(product)))
+    .catch(error => console.error(error));
+};
+>>>>>>> 55579b264fa406da0cffe92442ffcd63b17f89ab
 
 // Reducers
 const initialState = {
   products: [],
+  singleProduct: {},
   isFetching: false,
   cart: [],
 };
@@ -73,6 +90,11 @@ const products = (state = initialState, action) => {
       return { ...state, isFetching: true };
     case GET_ALL_PRODUCTS:
       return { products: action.products, isFetching: false, cart: state.cart };
+    case GET_SINGLE_PRODUCT:
+      return {
+        ...state,
+        singleProduct: action.product,
+      };
     case ADD_PRODUCT_TO_CART:
       return { ...state, cart: [...state.cart, action.product] };
     default:

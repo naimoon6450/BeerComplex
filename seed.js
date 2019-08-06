@@ -1,4 +1,12 @@
-const { Category, Supplier, Product, Session, User, Order, OrderProduct } = require('./server/db/index');
+const {
+  Category,
+  Supplier,
+  Product,
+  Session,
+  User,
+  Order,
+  OrderProduct,
+} = require('./server/db/index');
 const db = require('./server/db/connection');
 
 const users = [
@@ -10,7 +18,7 @@ const users = [
     city: 'Hollywoo',
     state: 'CA - California',
     zipCode: '55555',
-    country: 'US',
+    country: 'United States of America',
     phone: '5555555555',
     email: 'bojack@horseman.com',
     password: 'passswordio1233',
@@ -23,7 +31,7 @@ const users = [
     city: 'Hollywoo',
     state: 'CA - California',
     zipCode: '55555',
-    country: 'US',
+    country: 'United States of America',
     phone: '5555555555',
     email: 'naimoon6450@gmail.com',
     password: 'abcdef123',
@@ -198,49 +206,55 @@ const products = [
 ];
 
 const seed = () => {
-  db.sync({ force: true })
-    .then(() => {
-      console.log('Seeding db...');
-      return Promise.all(categories.map(category => Category.create(category))).then(categoryArr => {
-        return Promise.all(suppliers.map(supplier => Supplier.create(supplier))).then(supplyArr => {
-          return Promise.all(products.map(prod => Product.create(prod))).then(productArr => {
-            // creating maps for prod, supplier, cat with names as keys
-            const prodMap = productArr.reduce((agg, curr) => {
-              agg[curr.get().name] = curr;
-              return agg;
-            }, {});
-            const suppMap = supplyArr.reduce((agg, curr) => {
-              agg[curr.get().name] = curr;
-              return agg;
-            }, {});
-            const catMap = categoryArr.reduce((agg, curr) => {
-              agg[curr.get().name] = curr;
-              return agg;
-            }, {});
+  db.sync({ force: true }).then(() => {
+    console.log('Seeding db...');
+    return Promise.all(categories.map(category => Category.create(category)))
+      .then(categoryArr => {
+        return Promise.all(
+          suppliers.map(supplier => Supplier.create(supplier))
+        ).then(supplyArr => {
+          return Promise.all(products.map(prod => Product.create(prod))).then(
+            productArr => {
+              // creating maps for prod, supplier, cat with names as keys
+              const prodMap = productArr.reduce((agg, curr) => {
+                agg[curr.get().name] = curr;
+                return agg;
+              }, {});
+              const suppMap = supplyArr.reduce((agg, curr) => {
+                agg[curr.get().name] = curr;
+                return agg;
+              }, {});
+              const catMap = categoryArr.reduce((agg, curr) => {
+                agg[curr.get().name] = curr;
+                return agg;
+              }, {});
 
-            const associationArr = [
-              //setting categories
-              prodMap['Edward'].setCategory(catMap['Pale Ale']),
-              prodMap['Susan'].setCategory(catMap['IPA']),
-              prodMap['Incandenza'].setCategory(catMap['Sour']),
-              prodMap['Mirrorshield'].setCategory(catMap['Sour']),
-              prodMap['All Green Everything'].setCategory(catMap['IPA']),
-              prodMap['Double Mosaic Dream'].setCategory(catMap['IPA']),
-              prodMap['The Substance'].setCategory(catMap['Pale Ale']),
-              prodMap['Reciprocal'].setCategory(catMap['IPA']),
-              prodMap['Heady Topper'].setCategory(catMap['IPA']),
-              prodMap['Focal Banger'].setCategory(catMap['IPA']),
-              prodMap['Gose'].setCategory(catMap['Gose']),
-              prodMap['Mexican Cake'].setCategory(catMap['Stout']),
-              prodMap['Anti-Hero'].setCategory(catMap['IPA']),
-              prodMap['Eugene'].setCategory(catMap['Porter']),
-              prodMap['Surette Provision Saison'].setCategory(catMap['Saison']),
-              prodMap['Coffee Baltic Porter'].setCategory(catMap['Porter']),
-              prodMap['Janiak Maniac'].setCategory(catMap['Pilsner']),
-              prodMap['Superhero Sidekicks'].setCategory(catMap['IPA']),
-              prodMap['Straight Jacket'].setCategory(catMap['Barleywine']),
-              prodMap["Ellie's Brown Ale"].setCategory(catMap['Brown Ale']),
+              const associationArr = [
+                //setting categories
+                prodMap['Edward'].setCategory(catMap['Pale Ale']),
+                prodMap['Susan'].setCategory(catMap['IPA']),
+                prodMap['Incandenza'].setCategory(catMap['Sour']),
+                prodMap['Mirrorshield'].setCategory(catMap['Sour']),
+                prodMap['All Green Everything'].setCategory(catMap['IPA']),
+                prodMap['Double Mosaic Dream'].setCategory(catMap['IPA']),
+                prodMap['The Substance'].setCategory(catMap['Pale Ale']),
+                prodMap['Reciprocal'].setCategory(catMap['IPA']),
+                prodMap['Heady Topper'].setCategory(catMap['IPA']),
+                prodMap['Focal Banger'].setCategory(catMap['IPA']),
+                prodMap['Gose'].setCategory(catMap['Gose']),
+                prodMap['Mexican Cake'].setCategory(catMap['Stout']),
+                prodMap['Anti-Hero'].setCategory(catMap['IPA']),
+                prodMap['Eugene'].setCategory(catMap['Porter']),
+                prodMap['Surette Provision Saison'].setCategory(
+                  catMap['Saison']
+                ),
+                prodMap['Coffee Baltic Porter'].setCategory(catMap['Porter']),
+                prodMap['Janiak Maniac'].setCategory(catMap['Pilsner']),
+                prodMap['Superhero Sidekicks'].setCategory(catMap['IPA']),
+                prodMap['Straight Jacket'].setCategory(catMap['Barleywine']),
+                prodMap["Ellie's Brown Ale"].setCategory(catMap['Brown Ale']),
 
+<<<<<<< HEAD
             // setting suppliers
             prodMap['Edward'].setSupplier(suppMap['Hill Farmstead']),
             prodMap['Susan'].setSupplier(suppMap['Hill Farmstead']),
@@ -274,8 +288,80 @@ const seed = () => {
             OrderProduct.create(orderProducts[3]),
           ];
           return Promise.all(associationArr).then(associationArr => associationArr);
+=======
+                // setting suppliers
+                prodMap['Edward'].setSupplier(suppMap['Hill Farmstead']),
+                prodMap['Susan'].setSupplier(suppMap['Hill Farmstead']),
+                prodMap['Incandenza'].setSupplier(
+                  suppMap['Hudson Valley Brewery']
+                ),
+                prodMap['Mirrorshield'].setSupplier(
+                  suppMap['Hudson Valley Brewery']
+                ),
+                prodMap['All Green Everything'].setSupplier(
+                  suppMap['Other Half Brewing Co.']
+                ),
+                prodMap['Double Mosaic Dream'].setSupplier(
+                  suppMap['Other Half Brewing Co.']
+                ),
+                prodMap['The Substance'].setSupplier(
+                  suppMap['Bissell Brothers Brewing Company']
+                ),
+                prodMap['Reciprocal'].setSupplier(
+                  suppMap['Bissell Brothers Brewing Company']
+                ),
+                prodMap['Heady Topper'].setSupplier(suppMap['The Alchemist']),
+                prodMap['Focal Banger'].setSupplier(suppMap['The Alchemist']),
+                prodMap['Gose'].setSupplier(suppMap['Westbrook Brewing Co.']),
+                prodMap['Mexican Cake'].setSupplier(
+                  suppMap['Westbrook Brewing Co.']
+                ),
+                prodMap['Anti-Hero'].setSupplier(
+                  suppMap['Revolution Brewing Company']
+                ),
+                prodMap['Eugene'].setSupplier(
+                  suppMap['Revolution Brewing Company']
+                ),
+                prodMap['Surette Provision Saison'].setSupplier(
+                  suppMap['Crooked Stave Artisan Beer Project']
+                ),
+                prodMap['Coffee Baltic Porter'].setSupplier(
+                  suppMap['Crooked Stave Artisan Beer Project']
+                ),
+                prodMap['Janiak Maniac'].setSupplier(
+                  suppMap['Kings County Brewers Collective']
+                ),
+                prodMap['Superhero Sidekicks'].setSupplier(
+                  suppMap['Kings County Brewers Collective']
+                ),
+                prodMap['Straight Jacket'].setSupplier(
+                  suppMap['Revolution Brewing Company']
+                ),
+                prodMap["Ellie's Brown Ale"].setSupplier(
+                  suppMap['Kings County Brewers Collective']
+                ),
+                User.create(users[0]), // for testing purposes
+                User.create(users[1]), // for testing purposes
+              ];
+              return Promise.all(associationArr).then(
+                associationArr => associationArr
+              );
+            }
+          );
+>>>>>>> 55579b264fa406da0cffe92442ffcd63b17f89ab
         });
+      })
+      .then(() => {
+        console.log('Database seeded...');
+      })
+      .catch(e => {
+        console.error(e);
+      })
+      .then(() => {
+        db.close();
+        return null;
       });
+<<<<<<< HEAD
     })
     .then(() => {
       console.log('Database seeded...');
@@ -288,6 +374,9 @@ const seed = () => {
       return null;
     });
 })
+=======
+  });
+>>>>>>> 55579b264fa406da0cffe92442ffcd63b17f89ab
 };
 
 seed();
