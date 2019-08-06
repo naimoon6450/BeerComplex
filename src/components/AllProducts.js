@@ -1,15 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchAllProducts, addProductToCart } from '../redux/reducers/product';
-<<<<<<< HEAD
 import { withStyles } from '@material-ui/core/styles';
-import Product from './Product';
-
-=======
 import { FrontBanner, SingleProduct } from './index';
 import { Grid } from '@material-ui/core';
->>>>>>> 55579b264fa406da0cffe92442ffcd63b17f89ab
 //add material iu and make grid for all products
 const styles = {};
 
