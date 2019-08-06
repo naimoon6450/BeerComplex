@@ -1,10 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchAllProducts, addProductToCart } from '../redux/reducers/product';
+import { withStyles } from '@material-ui/core/styles';
 import { FrontBanner, SingleProduct } from './index';
 import { Grid } from '@material-ui/core';
 //add material iu and make grid for all products
+const styles = {};
+
 class AllProducts extends React.Component {
   componentDidMount() {
     this.props.fetchProducts();
@@ -74,11 +77,11 @@ const mapDispatchToProps = dispatch => {
 };
 
 // proptypes to do typechecking
-AllProducts.propTypes = {
-  products: PropTypes.array,
-};
+// AllProducts.propTypes = {
+//   products: PropTypes.array,
+// };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AllProducts);
+const StyledAllProducts = withStyles(styles)(AllProducts);
+const ConnectedAllProducts = connect(mapStateToProps, mapDispatchToProps)(StyledAllProducts);
+
+export default ConnectedAllProducts;
