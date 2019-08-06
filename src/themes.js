@@ -26,8 +26,7 @@ export const partOptions = {
     shape: {
       type: 'image',
       image: {
-        src:
-          'http://www.shejiye.com/uploadfile/icon/2017/0203/shejiyeiconwr5ig3wbda5.png',
+        src: 'https://i.imgur.com/rh6x9nZ.png',
       },
     },
     size: {

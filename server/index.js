@@ -19,17 +19,19 @@ app.use(express.urlencoded({ extended: false })); // this helped me see req.body
 app.use(morgan(process.env.MORGAN_MODE || null));
 
 // middleware for session management
-app.use(expressSession({
-  name: SESH_NAME,
-	secret: SESH_SECRET,
-	resave: false,
-  saveUninitialized: true,
-  cookie: {
-    maxAge: SESH_LIFETIME, // create env variable for SESH LIFETIME
-    sameSite: true,
-    secure: false, // if PROD change to true, create ENV var for this
-  },
-}));
+app.use(
+  expressSession({
+    name: SESH_NAME,
+    secret: SESH_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: SESH_LIFETIME, // create env variable for SESH LIFETIME
+      sameSite: true,
+      secure: false, // if PROD change to true, create ENV var for this
+    },
+  })
+);
 
 app.use(async (req, res, next) => {
   const sid = req.session.id;
@@ -37,7 +39,7 @@ app.use(async (req, res, next) => {
   if (req.session.userId) {
     console.log('User already in memory:', req.session.userType, req.session.userId);
   } else {
-    const [session] = await Session.findOrCreate({where: {sid}});
+    const [session] = await Session.findOrCreate({ where: { sid } });
 
     if (session.userId) {
       const user = await User.findByPk(session.userId);
@@ -46,15 +48,14 @@ app.use(async (req, res, next) => {
       console.log('Found user', session.userId, 'req.userId:', req.userId, 'req.userType:', req.userType);
     } else {
       const guestUser = await User.create({});
-      await session.update({userId: guestUser.id});
+      await session.update({ userId: guestUser.id });
       req.userId = guestUser.id;
       console.log('Guest user created', guestUser.id);
     }
   }
 
   next();
-
-})
+});
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // 'API' routes
@@ -69,7 +70,7 @@ app.use((error, req, res, next) => {
   res.status(404).send(error);
 });
 
-db.sync({force: process.env.DB_FORCE === 'true'})
+db.sync()
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server listening on PORT: ${PORT}`);
