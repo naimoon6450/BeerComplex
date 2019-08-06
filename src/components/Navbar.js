@@ -69,7 +69,7 @@ class Navbar extends React.Component {
       </div>
     );
   }
-};
+}
 
 const mapStateToProps = state => ({
   loggedInUser: state.users.loggedInUser,
@@ -83,5 +83,5 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 })
 
 const StyledNavbar = withStyles(styles)(Navbar);
-const ConnectedNavbar = connect(mapStateToProps, mapDispatchToProps)(Navbar);
+const ConnectedNavbar = connect(mapStateToProps, mapDispatchToProps)(StyledNavbar);
 export default withRouter(ConnectedNavbar);

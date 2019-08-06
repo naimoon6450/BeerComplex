@@ -30,12 +30,8 @@
     "redux": "^3.6.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-<<<<<<< HEAD
-    "sequelize": "^5.12.2"
-=======
-    "sequelize": "^6.0.0",
+    "sequelize": "^5.12.2",
     "typewriter-effect": "^2.10.0"
->>>>>>> 55579b264fa406da0cffe92442ffcd63b17f89ab
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
