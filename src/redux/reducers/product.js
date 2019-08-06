@@ -32,7 +32,7 @@ const fetchingProductDataError = error => ({
 const checkPendingOrder = sessionId => ({
   type: CHECK_FOR_PENDING_ORDER,
   sessionId,
-})
+});
 
 export const addProductToCart = product => {
   return {
@@ -57,14 +57,14 @@ export const fetchOrCreateOrder = () => dispatch => {
   // Order.findOne({where: sessionId, status: 'PENDING'})
   // if no order, Order.create
   //if order, return order
-}
+};
 
 export const addProductToOrder = () => dispatch => {
   // takes order id and product id
   // check if that product already exists in this order
   // if exists, increase quantity by 1
   // if it doesn't exist, OrderProduct.create(orderId, productId, productQuantity: 1)
-}
+};
 export const fetchSingleProduct = prodId => dispatch => {
   axios
     .get(`/api/products/${prodId}`)
