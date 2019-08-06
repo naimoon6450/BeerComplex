@@ -10,9 +10,9 @@ const app = document.getElementById('app');
 // render on app using ReactDOM
 ReactDOM.render(
   <Provider store={store}>
-  <Router>
-    <Main />
-  </Router>
+    <Router>
+      <Main />
+    </Router>
   </Provider>,
   app,
   () => {

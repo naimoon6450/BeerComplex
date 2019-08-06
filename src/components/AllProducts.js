@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchAllProducts, addProductToCart } from '../redux/reducers/product';
-
+import { FrontBanner, SingleProduct } from './index';
+import { Grid } from '@material-ui/core';
 //add material iu and make grid for all products
 class AllProducts extends React.Component {
   componentDidMount() {
