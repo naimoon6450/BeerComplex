@@ -19,7 +19,8 @@ class AllProducts extends React.Component {
             <li key={product.id}>
               <ul
                 onClick={
-                  () => {
+                  e => {
+                    e.preventDefault();
                     return (
                       <Redirect
                         to={`/porduct/${product.id}`}
@@ -42,7 +43,8 @@ class AllProducts extends React.Component {
               </ul>
               <button
                 type="button"
-                onClick={() => {
+                onClick={e => {
+                  e.preventDefault();
                   this.props.addToCart(product);
                   console.log('Added to cart'); //add product to cart
                 }}

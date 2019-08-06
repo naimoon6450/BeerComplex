@@ -15,10 +15,12 @@ const product = props => {
         <li>{props.product.description}</li>
         <li>{props.product.price}</li>
         <form>
-          <span />
-          {/*add quantity input  */}
+          <input onChange={props.updateQuantity} />
         </form>
-        <button type="button" onClick={props.addToCart(props.product)}>
+        <button
+          type="button"
+          onClick={props.addToCart(props.product, props.quantity)}
+        >
           Add to Cart
         </button>
       </ul>
@@ -28,19 +30,27 @@ const product = props => {
 
 const mapStateToProps = state => {
   return {
-    products: state.products.products,
-    quantity: 1,
+    //products: state.products.products,
+    quantity: state.products.quantity,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    addToCart: product => dispatch(addProductToCart(product)),
+    addToCart: (e, product, quantity) => {
+      e.preventDefault();
+      dispatch(addProductToCart(product, quantity));
+    },
+    updateQuantity: (e, quantity) => {
+      e.preventDefault();
+      dispatch(setQuantity(quantity));
+    },
   };
 };
 
 Product.propTypes = {
-  products: PropTypes.array,
+  //products: PropTypes.array,
+  quantity: PropTypes.integer,
 };
 
 export default connect(
