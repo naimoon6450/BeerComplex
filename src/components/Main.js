@@ -1,13 +1,11 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { Navbar, Login, SignUp, AllProducts, Home, SingleProductView } from './index';
+import { Navbar, Login, SignUp, AllProducts, SingleProductView } from './index';
 import { fetchAuthStatus } from '../redux/reducers/user';
 import store from '../redux/store'
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import theme from '../themes';
-
+import theme, { partOptions } from '../themes';
 import Particles from 'react-particles-js';
-import { partOptions } from '../themes';
 
 class Main extends React.Component {
   constructor(props) {
@@ -32,13 +30,13 @@ class Main extends React.Component {
       <div>
         <MuiThemeProvider theme={theme}>
           <Navbar />
-          <Particles className='particles' params={partOptions} />
-          <div id='main'>
+          <Particles className="particles" params={partOptions} />
+          <div id="main">
             <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={SignUp} />
             <Route exact path="/" component={AllProducts} />
-            <Route path='/products/:id' component={SingleProductView} />
+            <Route path="/products/:id" component={SingleProductView} />
             <Redirect from="/home" to="/products" />
             <Redirect from="/products" to="/" />
             </Switch>

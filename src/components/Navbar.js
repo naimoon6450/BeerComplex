@@ -14,7 +14,6 @@ import {
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import LocalDrink from '@material-ui/icons/LocalDrink';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import theme from '../themes';
 
 // using Material UI's makeStyles to create style objects
 const styles = makeStyles({

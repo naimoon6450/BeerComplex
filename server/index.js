@@ -37,7 +37,7 @@ app.use(async (req, res, next) => {
   if (req.session.userId) {
     console.log('User already in memory:', req.session.userType, req.session.userId);
   } else {
-    const [session, wasCreated] = await Session.findOrCreate({where: {sid}});
+    const [session] = await Session.findOrCreate({where: {sid}});
 
     if (session.userId) {
       const user = await User.findByPk(session.userId);

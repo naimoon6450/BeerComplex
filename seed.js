@@ -1,3 +1,4 @@
+/* eslint-disable dot-notation */
 const {
   Category,
   Supplier,
@@ -258,7 +259,7 @@ const seed = () => {
             User.create(users[0]), // for testing purposes
             User.create(users[1]), // for testing purposes
           ];
-          return Promise.all(associationArr).then(associationArr => associationArr);
+          return Promise.all(associationArr).then(_associationArr => _associationArr);
 
         }
         );
