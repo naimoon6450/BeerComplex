@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { User } = require('../../db/index');
+const { User, Session } = require('../../db/index');
 
 module.exports = router;
-
