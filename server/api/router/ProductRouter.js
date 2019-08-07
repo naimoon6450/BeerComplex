@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const prodId = req.params.id;
-    const product = await Product.findByPk(prodId);
+    const product = await Product.findByPk(prodId, { include: [{ model: Supplier }, { model: Category }] });
     res.json(product);
   } catch (error) {
     console.error(error);

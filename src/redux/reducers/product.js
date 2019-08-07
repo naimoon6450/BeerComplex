@@ -6,6 +6,7 @@ const PRODUCT_REQUEST_FAILURE = 'PRODUCT_REQUEST_FAILURE';
 const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 const CHECK_FOR_PENDING_ORDER = 'CHECK_FOR_PENDING_ORDER';
 const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
+const UPDATE_QUANTITY = 'UPDATE_QUANTITY';
 const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT';
 
 // Action Creators
@@ -38,6 +39,13 @@ export const addProductToCart = product => {
   return {
     type: ADD_PRODUCT_TO_CART,
     product,
+  };
+};
+
+export const setQuantity = quantity => {
+  return {
+    type: UPDATE_QUANTITY,
+    quantity,
   };
 };
 
@@ -79,6 +87,7 @@ const initialState = {
   singleProduct: {},
   isFetching: false,
   cart: [],
+  quantity: 1,
 };
 
 const products = (state = initialState, action) => {
@@ -94,6 +103,8 @@ const products = (state = initialState, action) => {
       };
     case ADD_PRODUCT_TO_CART:
       return { ...state, cart: [...state.cart, action.product] };
+    case UPDATE_QUANTITY:
+      return { ...state, quantity: action.quantity };
     default:
       return state;
   }

@@ -2,9 +2,11 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Card, CardMedia, CardContent, CardHeader, Typography, Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
-import { fetchAllProducts, addProductToCart } from '../redux/reducers/product';
+import { makeStyles } from '@material-ui/core/styles';
+import { truncate } from '../../utils';
+
+// for the truncating
+const HEIGHT_WRAP = 100;
 
 const styles = makeStyles(({
   root: {
@@ -18,60 +20,51 @@ const styles = makeStyles(({
   spacing: {
     margin: '1em',
   },
+  desc: {
+    textOverflow: 'ellipses',
+    overflow: 'hidden',
+    margin: '1em',
+    height: '100px',
+    wordWrap: 'break-word',
+  },
 }));
 
-class SingleProduct extends React.Component {
-  render () {
-    const { product, supplier, category } = this.props;
-    const classes = styles;
-    return (
-      <div>
-        <Link to={`/products/${product.id}`} style={{ textDecoration: 'none' }}>
-          <Card className={classes.root}>
-            <CardHeader title={product.name} subheader={category.name} />
-            <CardMedia image={product.imageUrl} className={classes.media} />
-            <CardContent>
-              {/* <li>
-              <img src={product.imageUrl} className="product-image" />
-            </li> */}
-              <Typography variant="body2" className={classes.spacing}>
-                {product.description}
-              </Typography>
-              <Typography variant="subtitle1">Price: ${product.price}</Typography>
-              <Typography variant="subtitle1" style={{ marginBottom: '5px' }}>
-                Brewery: {supplier.name}
-              </Typography>
-  
-              <Fab
-                size="small"
-                color="secondary"
-                aria-label="add"
-                onClick={() => {
-                  addProductToCart(product);
-                  console.log('Added to cart'); //add product to cart
-                }}
-              >
-                <AddIcon />
-              </Fab>
-            </CardContent>
-          </Card>
-        </Link>
-      </div>
-    );
-  }
+const SingleProduct = props => {
+  const { product, supplier, category } = props;
+  const descWrapped = truncate(product.description, HEIGHT_WRAP);
+  const classes = useStyles();
+  return (
+    <Link to={`/products/${product.id}`} style={{ textDecoration: 'none' }}>
+      <Card className={classes.root}>
+        <CardHeader title={product.name} subheader={category.name} />
+        <CardMedia image={product.imageUrl} className={classes.media} />
+        <CardContent>
+          {/* <li>
+            <img src={product.imageUrl} className="product-image" />
+          </li> */}
+          <Typography variant="body2" className={classes.desc}>
+            {descWrapped}
+          </Typography>
+          <Typography variant="subtitle1">Price: ${product.price}</Typography>
+          <Typography variant="subtitle1" style={{ marginBottom: '5px' }}>
+            Brewery: {supplier.name}
+          </Typography>
+
+          <Fab
+            size="small"
+            color="secondary"
+            aria-label="add"
+            onClick={() => {
+              // this.props.addToCart(product);
+              // console.log('Added to cart');
+            }}
+          >
+            <AddIcon />
+          </Fab>
+        </CardContent>
+      </Card>
+    </Link>
+  );
 };
 
-// proptypes to do typechecking
-SingleProduct.propTypes = {
-  products: PropTypes.array,
-  fetchProducts: PropTypes.func,
-  addToCart: PropTypes.func,
-};
-
-const StyledSingleProduct = withStyles(styles)(SingleProduct);
-const ConnectedSingleProduct = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(StyledSingleProduct);
-
-export default withRouter(ConnectedSingleProduct);
+export default SingleProduct;
