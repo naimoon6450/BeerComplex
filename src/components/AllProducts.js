@@ -16,10 +16,18 @@ class AllProducts extends React.Component {
       // Will have banner here
       <div>
         <FrontBanner />
-        <Grid container spacing={10} justify='center'>
+        <div id="filters">hi</div>
+        <Grid container spacing={10} justify="center">
           {products.map(product => {
             const { supplier, category } = product;
-            return <SingleProduct key={product.id} product={product} supplier={supplier} category={category} />;
+            return (
+              <SingleProduct
+                key={product.id}
+                product={product}
+                supplier={supplier}
+                category={category}
+              />
+            );
           })}
         </Grid>
       </div>
