@@ -1,13 +1,30 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { Navbar, Login, SignUp, AllProducts, Home, SingleProductView } from './index';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { Navbar, Login, SignUp, AllProducts, SingleProductView } from './index';
+import { fetchAuthStatus } from '../redux/reducers/user';
+import store from '../redux/store';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import theme from '../themes';
-
+import theme, { partOptions } from '../themes';
 import Particles from 'react-particles-js';
-import { partOptions } from '../themes';
 
 class Main extends React.Component {
+  constructor(props) {
+    super(props);
+    this.getAuthStatus = this.getAuthStatus.bind(this);
+  }
+
+  getAuthStatus() {
+    store.dispatch(fetchAuthStatus());
+  }
+
+  componentDidMount() {
+    // getAuthStatus hits /api/auth and puts on the store
+    this.getAuthStatus();
+  }
+  componentDidUpdate() {
+    // getAuthStatus hits /api/auth and puts on the store
+    this.getAuthStatus();
+  }
   render() {
     return (
       <div>
@@ -16,11 +33,12 @@ class Main extends React.Component {
           <Particles className='particles' params={partOptions} />
           <div id='main'>
             <Switch>
-              <Route exact path='/' render={() => <AllProducts />} />
-              <Route path='/login' render={history => <Login history={history} />} />
+              <Route path='/login' component={Login} />
               <Route path='/signup' component={SignUp} />
-              <Route path='/home' render={history => <Home history={history} />} />
+              <Route exact path='/' component={AllProducts} />
               <Route path='/products/:id' component={SingleProductView} />
+              <Redirect from='/home' to='/products' />
+              <Redirect from='/products' to='/' />
             </Switch>
           </div>
         </MuiThemeProvider>
