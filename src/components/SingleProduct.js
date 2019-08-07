@@ -1,6 +1,13 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Card, CardMedia, CardContent, CardHeader, Typography, Fab } from '@material-ui/core';
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  CardHeader,
+  Typography,
+  Fab,
+} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import { truncate } from '../../utils';
@@ -8,7 +15,7 @@ import { truncate } from '../../utils';
 // for the truncating
 const HEIGHT_WRAP = 100;
 
-const styles = makeStyles(({
+const styles = makeStyles({
   root: {
     maxWidth: '350px',
     margin: '1em',
@@ -27,12 +34,12 @@ const styles = makeStyles(({
     height: '100px',
     wordWrap: 'break-word',
   },
-}));
+});
 
 const SingleProduct = props => {
   const { product, supplier, category } = props;
   const descWrapped = truncate(product.description, HEIGHT_WRAP);
-  const classes = useStyles();
+  const classes = styles();
   return (
     <Link to={`/products/${product.id}`} style={{ textDecoration: 'none' }}>
       <Card className={classes.root}>
