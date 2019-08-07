@@ -5,7 +5,8 @@ const agent = require('supertest')(app);
 // import model reqs
 const { db } = require('../../server/db/index');
 const { Product, Order, OrderProduct } = require('../../server/db/index');
-
+const PENDING = 'PENDING';
+const COMPLETE = 'COMPLETE';
 describe('Product routes', () => {
   let products;
   const sampleProd1 = {
@@ -22,9 +23,28 @@ describe('Product routes', () => {
     price: 100.0,
   };
 
+  const sampleProd3 = {
+    name: `Drew Brew`,
+    description: `IBU one million.`,
+    imageUrl: '/images/avery_ellies.jpg',
+    price: 10.0,
+  };
+
+  const sampleProd4 = {
+    name: `Sample 4`,
+    description: `The fourth sample.`,
+    imageUrl: '/images/avery_ellies.jpg',
+    price: 4.0,
+  };
+
   beforeEach(async () => {
     // await db.sync({ force: true });
-    const createdProds = await Product.bulkCreate([sampleProd1, sampleProd2]);
+    const createdProds = await Product.bulkCreate([
+      sampleProd1,
+      sampleProd2,
+      sampleProd3,
+      sampleProd4,
+    ]);
     products = createdProds.map(prods => prods.dataValues);
     return products;
   });
@@ -41,32 +61,50 @@ describe('Product routes', () => {
   describe('GET `/api/products/:id', () => {
     it('serves up single product', async () => {
       const prodId = products[0].id;
-      const responseProd = await agent.get(`/api/products/${prodId}`).expect(200);
+      const responseProd = await agent
+        .get(`/api/products/${prodId}`)
+        .expect(200);
       expect(responseProd.body.name).toEqual("Ellie's Brown Ale");
     });
   });
 });
 
 describe('Order routes', () => {
-  // beforeEach(async () => {
-  // create test orders
-  // const createdProds = await Product.bulkCreate([sampleProd1, sampleProd2]);
-  // orders = await Order.create(sampleOrder1);
-  // return orders;
-  // });
+  let orders = [];
+
+  const order0 = { id: 0, orderTotal: 100, status: COMPLETE };
+  const order1 = { id: 1, orderTotal: 200, status: PENDING };
+  const order2 = { id: 2, orderTotal: 300, status: PENDING };
+
+  beforeEach(async () => {
+    //create test orders
+    const createdOrder0 = await Order.bulkCreate([order1, order2]);
+    const createdOrder1 = await Order.bulkCreate([order0, order1, order2]);
+    orders = [
+      createdOrder0.map(order => order.dataValues),
+      createdOrder1.map(order => order.dataValues),
+    ];
+    return orders;
+  });
   describe('GET `/api/orders', () => {
     xit('serves up all orders', async () => {
-      const responseProd = await agent.get('/api/orders').expect(200);
-      // expect(responseProd.body[0].name).toEqual(products[0].name);
+      const responseOrder = await agent.get('/api/orders').expect(200);
+      expect(responseOrder.body[0].id.toEqual(orders[0].id));
+      expect(responseOrder.body[0].orderTotal.toEqual(orders[0].orderTotal));
+      expect(responseOrder.body[0].status.toEqual(orders[0].status));
     });
   });
   describe('GET `/api/orders/:id', () => {
     xit('serves up a specific order', async () => {
-      const responseProd = await agent.get(`api/orders/someOrderId`).expect(200);
-      // expect(responseProd.body[0].name).toEqual(products[0].name);
+      const responseOrder = await agent.get(`api/orders/1`).expect(200);
+      expect(responseOrder.body[0].id).toEqual(orders[1].id);
+      expect(responseOrder.body[0].orderTotal.toEqual(orders[1].orderTotal));
+      expect(responseOrder.body[0].status.toEqual(orders[1].status));
     });
     xit('serves up a specific order with order/session details', async () => {
-      const responseProd = await agent.get(`api/orders/someOrderId`).expect(200);
+      const responseOrder = await agent
+        .get(`api/orders/someOrderId`)
+        .expect(200);
       // check for products within the order
       // check for quantity within order
 
@@ -75,14 +113,18 @@ describe('Order routes', () => {
   });
   describe('POST `/api/orders', () => {
     xit('can post an order to db upon creation', async () => {
-      // const orderPayLoad =
-      const responseProd = await agent.post('/api/orders').expect(200);
-      // expect(responseProd.body[0].name).toEqual(products[0].name);
+      const orderPayLoad = { id: 3, orderTotal: 4, status: PENDING };
+      const responseOrder = await agent
+        .post('/api/orders', orderPayLoad) //supply an order to the post
+        .expect(200);
+      expect(responseOrder.body[0].id).toEqual(order[0].id);
     });
   });
   describe('GET `/api/users/:id/orders', () => {
     xit('serves up a specific users orders ', async () => {
-      const responseProd = await agent.post('/api/users/:someUSERID/orders').expect(200);
+      const responseOrder = await agent
+        .post('/api/users/:someUSERID/orders')
+        .expect(200);
       // check if the user is correct
       // check order amount
 
@@ -91,7 +133,9 @@ describe('Order routes', () => {
   });
   describe('GET `/api/users/:id/orders/:id', () => {
     xit('serves up a specific order by a specific user', async () => {
-      const responseProd = await agent.post('/api/users/:someUSERID/orders/:someOrderId').expect(200);
+      const responseOrder = await agent
+        .post('/api/users/:someUSERID/orders/:someOrderId')
+        .expect(200);
       // check orders
 
       // expect(responseProd.body[0].name).toEqual(products[0].name);
