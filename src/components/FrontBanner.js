@@ -1,9 +1,9 @@
-import React from 'react';
-import { Container } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import Typewriter from 'typewriter-effect';
+import React from "react";
+import { Container } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import Typewriter from "typewriter-effect";
 
-const itemArr = ['Barleywine', 'Brown Ale', 'Gose', 'Porter', 'And More!'];
+const itemArr = ["Barleywine", "Brown Ale", "Gose", "Porter", "And More!"];
 
 const FrontBanner = () => {
   return (
@@ -16,14 +16,14 @@ const FrontBanner = () => {
           variant="h4"
           color="inherit"
           gutterBottom
-          style={{ marginBottom: '2em' }}
+          style={{ marginBottom: "2em" }}
         >
           YOU CAN GET ROWDY WITH SOME:
           <Typewriter
             options={{
               strings: itemArr,
               autoStart: true,
-              loop: true,
+              loop: true
             }}
           />
         </Typography>

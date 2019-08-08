@@ -1,32 +1,32 @@
-const Sequelize = require('sequelize');
-const db = require('../connection');
+const Sequelize = require("sequelize");
+const db = require("../connection");
 
-const Product = db.define('product', {
+const Product = db.define("product", {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
-    primaryKey: true,
+    primaryKey: true
   },
   name: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true,
-    },
+      notEmpty: true
+    }
   },
   description: {
-    type: Sequelize.TEXT,
+    type: Sequelize.TEXT
   },
   imageUrl: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING
   },
   price: {
     type: Sequelize.DECIMAL,
     allowNull: false,
     validate: {
-      notEmpty: true,
-    },
-  },
+      notEmpty: true
+    }
+  }
 });
 
 module.exports = Product;

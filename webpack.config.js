@@ -1,14 +1,14 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  mode: process.env.NODE_ENV || 'development',
-  devtool: 'eval-source-map',
+  mode: process.env.NODE_ENV || "development",
+  devtool: "eval-source-map",
   entry: {
-    app: path.join(__dirname, 'src/index.js'),
+    app: path.join(__dirname, "src/index.js")
   },
   output: {
-    path: path.join(__dirname, 'public'),
-    filename: 'bundle.js',
+    path: path.join(__dirname, "public"),
+    filename: "bundle.js"
   },
   module: {
     rules: [
@@ -16,9 +16,9 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-        },
-      },
-    ],
-  },
+          loader: "babel-loader"
+        }
+      }
+    ]
+  }
 };

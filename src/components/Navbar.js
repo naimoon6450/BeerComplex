@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
-import { postLogout } from '../redux/reducers/user';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Link, withRouter } from "react-router-dom";
+import { postLogout } from "../redux/reducers/user";
 
 // Material UI requirements
 import {
@@ -10,21 +10,21 @@ import {
   Toolbar,
   Typography,
   Button,
-  IconButton,
-} from '@material-ui/core';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import LocalDrink from '@material-ui/icons/LocalDrink';
-import { withStyles } from '@material-ui/core/styles';
+  IconButton
+} from "@material-ui/core";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import LocalDrink from "@material-ui/icons/LocalDrink";
+import { withStyles } from "@material-ui/core/styles";
 
 // apparently MakeStyles isn't needed when styling a class component
 // using Material UI's makeStyles to create style objects
 const styles = () => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   title: {
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
 });
 
 class Navbar extends React.Component {
@@ -35,7 +35,7 @@ class Navbar extends React.Component {
         <AppBar position="static" color="secondary">
           <Toolbar>
             <Link to="/">
-              <LocalDrink color="primary" style={{ marginRight: '15px' }} />
+              <LocalDrink color="primary" style={{ marginRight: "15px" }} />
             </Link>
             <Typography
               variant="h6"
@@ -43,7 +43,7 @@ class Navbar extends React.Component {
               className={classes.title}
               component={Link}
               to="/"
-              style={{ textDecoration: 'none' }}
+              style={{ textDecoration: "none" }}
             >
               BEEROTOPIA
             </Typography>
@@ -83,13 +83,13 @@ class Navbar extends React.Component {
 
 const mapStateToProps = state => ({
   loggedInUser: state.users.loggedInUser,
-  loggedIn: state.users.loggedIn,
+  loggedIn: state.users.loggedIn
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   logout: () => {
     dispatch(postLogout(ownProps.history));
-  },
+  }
 });
 
 // proptypes to do typechecking
@@ -97,7 +97,7 @@ Navbar.propTypes = {
   loggedInUser: PropTypes.object,
   loggedIn: PropTypes.bool,
   logout: PropTypes.func,
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 const StyledNavbar = withStyles(styles)(Navbar);

@@ -1,43 +1,43 @@
-import axios from 'axios';
+import axios from "axios";
 
 // Constants
-const PRODUCT_REQUEST = 'PRODUCT_REQUEST';
-const PRODUCT_REQUEST_FAILURE = 'PRODUCT_REQUEST_FAILURE';
-const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
-const CHECK_FOR_PENDING_ORDER = 'CHECK_FOR_PENDING_ORDER';
-const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
-const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT';
+const PRODUCT_REQUEST = "PRODUCT_REQUEST";
+const PRODUCT_REQUEST_FAILURE = "PRODUCT_REQUEST_FAILURE";
+const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
+const CHECK_FOR_PENDING_ORDER = "CHECK_FOR_PENDING_ORDER";
+const ADD_PRODUCT_TO_CART = "ADD_PRODUCT_TO_CART";
+const GET_SINGLE_PRODUCT = "GET_SINGLE_PRODUCT";
 
 // Action Creators
 const getAllProducts = products => ({
   type: GET_ALL_PRODUCTS,
-  products,
+  products
 });
 
 const getSingleProduct = product => ({
   type: GET_SINGLE_PRODUCT,
-  product,
+  product
 });
 
 const fetchingProductData = () => ({
-  type: PRODUCT_REQUEST,
+  type: PRODUCT_REQUEST
 });
 
 const fetchingProductDataError = error => ({
   type: PRODUCT_REQUEST_FAILURE,
-  error: 'Failed to fetch product data',
-  payload: error,
+  error: "Failed to fetch product data",
+  payload: error
 });
 
 const checkPendingOrder = sessionId => ({
   type: CHECK_FOR_PENDING_ORDER,
-  sessionId,
+  sessionId
 });
 
 export const addProductToCart = product => {
   return {
     type: ADD_PRODUCT_TO_CART,
-    product,
+    product
   };
 };
 
@@ -45,7 +45,7 @@ export const addProductToCart = product => {
 export const fetchAllProducts = () => dispatch => {
   dispatch(fetchingProductData());
   axios
-    .get('/api/products')
+    .get("/api/products")
     .then(res => res.data)
     .then(products => dispatch(getAllProducts(products)))
     .catch(error => dispatch(fetchingProductDataError(error)));
@@ -78,7 +78,7 @@ const initialState = {
   products: [],
   singleProduct: {},
   isFetching: false,
-  cart: [],
+  cart: []
 };
 
 const products = (state = initialState, action) => {
@@ -90,7 +90,7 @@ const products = (state = initialState, action) => {
     case GET_SINGLE_PRODUCT:
       return {
         ...state,
-        singleProduct: action.product,
+        singleProduct: action.product
       };
     case ADD_PRODUCT_TO_CART:
       return { ...state, cart: [...state.cart, action.product] };

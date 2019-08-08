@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize');
-const db = require('../connection');
+const Sequelize = require("sequelize");
+const db = require("../connection");
 
-const OrderProduct = db.define('orderProduct', {
+const OrderProduct = db.define("orderProduct", {
   // id: {
   //     type: Sequelize.UUID,
   //     defaultValue: Sequelize.UUIDV4,
@@ -10,8 +10,8 @@ const OrderProduct = db.define('orderProduct', {
   productQuantity: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 0,
-  },
+    defaultValue: 0
+  }
 });
 
 module.exports = OrderProduct;

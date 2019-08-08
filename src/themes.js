@@ -1,13 +1,13 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from "@material-ui/core/styles";
 
 // for overriding custom themes
 const theme = createMuiTheme({
   palette: {
     secondary: {
-      main: '#7FDBFF',
-      contrastText: 'white',
-    },
-  },
+      main: "#7FDBFF",
+      contrastText: "white"
+    }
+  }
 });
 
 // settings for particle effect
@@ -17,37 +17,37 @@ export const partOptions = {
       value: 80,
       density: {
         enable: true,
-        value_area: 800,
-      },
+        value_area: 800
+      }
     },
     line_linked: {
-      color: '#708090',
+      color: "#708090"
     },
     shape: {
-      type: 'image',
+      type: "image",
       image: {
-        src: 'https://i.imgur.com/rh6x9nZ.png',
-      },
+        src: "https://i.imgur.com/rh6x9nZ.png"
+      }
     },
     size: {
-      value: 10,
+      value: 10
     },
     interactivity: {
-      detect_on: 'window',
+      detect_on: "window",
       events: {
         onhover: {
           enable: true,
-          mode: 'repulse',
-        },
+          mode: "repulse"
+        }
       },
       modes: {
         repulse: {
           distance: 50,
-          duration: 0.4,
-        },
-      },
-    },
-  },
+          duration: 0.4
+        }
+      }
+    }
+  }
 };
 
 export default theme;

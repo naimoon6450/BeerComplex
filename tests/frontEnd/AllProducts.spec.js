@@ -1,34 +1,34 @@
-import React from 'react';
-import enzyme, { shallow, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import { Provider } from 'react-redux';
+import React from "react";
+import enzyme, { shallow, mount } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+import { Provider } from "react-redux";
 
 // Enzyme requires adapter for usage
 const adapter = new Adapter();
 enzyme.configure({ adapter });
 
 // Component imports
-import { AllProducts } from '../../src/components/index';
+import { AllProducts } from "../../src/components/index";
 
-describe('All Products Page', () => {
+describe("All Products Page", () => {
   //   declare any variables
   let products = [
     {
       name: `Ellie's Brown Ale`,
       description: `This beautiful, deep russet brew has the sweet and somewhat nutty character of Adam Avery's late (1992-2002) Chocolate Lab, for which it is named.`,
-      imageUrl: '/images/avery_ellies.jpg',
-      price: 5.0,
+      imageUrl: "/images/avery_ellies.jpg",
+      price: 5.0
     },
     {
       name: `Naimuns Finest`,
       description: `This beautiful test wine is delicious for the brave.`,
-      imageUrl: '/images/avery_ellies.jpg',
-      price: 100.0,
-    },
+      imageUrl: "/images/avery_ellies.jpg",
+      price: 100.0
+    }
   ];
 
-  describe('<AllProducts /> component', () => {
-    it('renders a list of products', () => {
+  describe("<AllProducts /> component", () => {
+    it("renders a list of products", () => {
       const allProdWrapper = shallow(<AllProducts />);
       console.log(wrapper);
     });
