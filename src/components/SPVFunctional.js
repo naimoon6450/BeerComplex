@@ -47,31 +47,39 @@ const SPVFunctional = props => {
     <Paper className={classes.paper}>
       <Grid container spacing={3}>
         <ButtonBase>
-          <img className={classes.img} alt='complex' src={product.imageUrl} />
+          <img className={classes.img} alt="complex" src={product.imageUrl} />
         </ButtonBase>
         <Grid item sm={12} sm container>
-          <Grid item sm container direction='column' spacing={2}>
-            <Typography variant='h2'>{product.name}</Typography>
-            <Typography variant='subtitle1' style={{ marginLeft: '5px' }}>
+          <Grid item sm container direction="column" spacing={2}>
+            <Typography variant="h2">{product.name}</Typography>
+            <Typography variant="subtitle1" style={{ marginLeft: '5px' }}>
               {category.name}
             </Typography>
-            <Typography variant='subtitle2' style={{ marginLeft: '5px' }}>
+            <Typography variant="subtitle2" style={{ marginLeft: '5px' }}>
               {`By: ${supplier.name}`}
             </Typography>
             <Grid item>
-              <Typography gutterBottom variant='body1'>
+              <Typography gutterBottom variant="body1">
                 {product.description}
               </Typography>
             </Grid>
           </Grid>
         </Grid>
         <Grid item sm={2}>
-          <Typography variant='subtitle1' style={{ marginBottom: '10px' }}>{`Price: $${product.price}`}</Typography>
+          <Typography
+            variant="subtitle1"
+            style={{ marginBottom: '10px' }}
+          >{`Price: $${product.price}`}</Typography>
           {/* no state at the moment to hold the value */}
-          <FormControl className={classes.labelWidth} variant='outlined'>
-            <InputLabel htmlFor='outlined-quant-simple'>Quantity</InputLabel>
-            <Select value='1' input={<OutlinedInput name='quantity' id='outlined-quant-simple' />}>
-              <MenuItem value=''>
+          <FormControl className={classes.labelWidth} variant="outlined">
+            <InputLabel htmlFor="outlined-quant-simple">Quantity</InputLabel>
+            <Select
+              value="1"
+              input={
+                <OutlinedInput name="quantity" id="outlined-quant-simple" />
+              }
+            >
+              <MenuItem value="">
                 <em>None</em>
               </MenuItem>
               {[1, 2, 3, 4, 5].map(quant => {
@@ -79,14 +87,14 @@ const SPVFunctional = props => {
               })}
             </Select>
           </FormControl>
-          <Grid item container justify='center'>
-            <Typography variant='subtitle1'>Add</Typography>
+          <Grid item container justify="center">
+            <Typography variant="subtitle1">Add</Typography>
           </Grid>
-          <Grid item container justify='center'>
+          <Grid item container justify="center">
             <Fab
-              size='large'
-              color='secondary'
-              aria-label='add'
+              size="large"
+              color="secondary"
+              aria-label="add"
               onClick={() => {
                 this.props.addToCart(product);
                 console.log('Added to cart'); //add product to cart
