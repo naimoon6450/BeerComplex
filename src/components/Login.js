@@ -5,7 +5,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { convertEmptyToNull } from '../../utils';
 
-import { makeStyles, withStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  withStyles,
+  MuiThemeProvider,
+} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -42,12 +46,12 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async handleSubmit (event) {
+  async handleSubmit(event) {
     event.preventDefault();
     await this.props.postLogin(convertEmptyToNull(this.state));
     this.setState({
@@ -57,11 +61,11 @@ class Login extends React.Component {
     this.props.history.push('/products');
   }
 
-  handleChange (event) {
-    this.setState({[event.target.name]: event.target.value});
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
-  render () {
+  render() {
     const classes = styles;
     return (
       <Container component="main" maxWidth="xs">
@@ -97,7 +101,13 @@ class Login extends React.Component {
               </Grid>
             </Grid>
             <MuiThemeProvider theme={theme}>
-              <Button type="submit" fullWidth variant="contained" color="secondary" className={classes.submit}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="secondary"
+                className={classes.submit}
+              >
                 Log In
               </Button>
             </MuiThemeProvider>
@@ -116,12 +126,15 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  postLogin: (user) => {
+  postLogin: user => {
     dispatch(postLogin(user));
-}
+  },
 });
 
 const StyledLogin = withStyles(styles)(Login);
-const ConnectedLogin = connect(null, mapDispatchToProps)(StyledLogin);
+const ConnectedLogin = connect(
+  null,
+  mapDispatchToProps
+)(StyledLogin);
 
 export default withRouter(ConnectedLogin);

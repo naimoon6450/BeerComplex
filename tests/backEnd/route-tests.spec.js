@@ -41,7 +41,9 @@ describe('Product routes', () => {
   describe('GET `/api/products/:id', () => {
     it('serves up single product', async () => {
       const prodId = products[0].id;
-      const responseProd = await agent.get(`/api/products/${prodId}`).expect(200);
+      const responseProd = await agent
+        .get(`/api/products/${prodId}`)
+        .expect(200);
       expect(responseProd.body.name).toEqual("Ellie's Brown Ale");
     });
   });
@@ -62,11 +64,15 @@ describe('Order routes', () => {
   });
   describe('GET `/api/orders/:id', () => {
     xit('serves up a specific order', async () => {
-      const responseProd = await agent.get(`api/orders/someOrderId`).expect(200);
+      const responseProd = await agent
+        .get(`api/orders/someOrderId`)
+        .expect(200);
       // expect(responseProd.body[0].name).toEqual(products[0].name);
     });
     xit('serves up a specific order with order/session details', async () => {
-      const responseProd = await agent.get(`api/orders/someOrderId`).expect(200);
+      const responseProd = await agent
+        .get(`api/orders/someOrderId`)
+        .expect(200);
       // check for products within the order
       // check for quantity within order
 
@@ -82,7 +88,9 @@ describe('Order routes', () => {
   });
   describe('GET `/api/users/:id/orders', () => {
     xit('serves up a specific users orders ', async () => {
-      const responseProd = await agent.post('/api/users/:someUSERID/orders').expect(200);
+      const responseProd = await agent
+        .post('/api/users/:someUSERID/orders')
+        .expect(200);
       // check if the user is correct
       // check order amount
 
@@ -91,7 +99,9 @@ describe('Order routes', () => {
   });
   describe('GET `/api/users/:id/orders/:id', () => {
     xit('serves up a specific order by a specific user', async () => {
-      const responseProd = await agent.post('/api/users/:someUSERID/orders/:someOrderId').expect(200);
+      const responseProd = await agent
+        .post('/api/users/:someUSERID/orders/:someOrderId')
+        .expect(200);
       // check orders
 
       // expect(responseProd.body[0].name).toEqual(products[0].name);

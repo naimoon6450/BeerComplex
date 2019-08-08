@@ -4,7 +4,11 @@ const { Order, User, OrderProduct, Product } = require('../../db/index');
 // API/orders
 router.get('/', async (req, res) => {
   try {
-    const orders = await Order.findAll({include: [{model: Product, through: {attributes: ['productQuantity']}}]});
+    const orders = await Order.findAll({
+      include: [
+        { model: Product, through: { attributes: ['productQuantity'] } },
+      ],
+    });
     res.json(orders);
   } catch (e) {
     console.error(e);
@@ -12,21 +16,20 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-//   try {
-//     const { id, user, session, orderTotal, product } = req.body;
-//     const order = await Order.create({id, orderTotal});
-//     if (req.userId) {
-//       await Order.update{(user);
-//     }
-//     const orderProducts = await OrderProduct.create();
-//     await order.addProduct
-//     const joinedOrder = Order.findByPk(order.id, {include: [OrderProduct]});
-//     res.json(joinedOrder);
-//   } catch (e) {
-//     console.error(e);
-//   }
+  //   try {
+  //     const { id, user, session, orderTotal, product } = req.body;
+  //     const order = await Order.create({id, orderTotal});
+  //     if (req.userId) {
+  //       await Order.update{(user);
+  //     }
+  //     const orderProducts = await OrderProduct.create();
+  //     await order.addProduct
+  //     const joinedOrder = Order.findByPk(order.id, {include: [OrderProduct]});
+  //     res.json(joinedOrder);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
 });
-
 
 // /api/orders/:id (specific order, which includes products)
 router.get('/orders/:id', async (req, res) => {
@@ -71,9 +74,7 @@ router.get('/users/:id/orders/:orderId', async (req, res) => {
   } catch (e) {
     console.log(e =>
       console.error(
-        `Could not get User:${req.params.id}'s Order:${
-          req.params.userId
-        } from database`,
+        `Could not get User:${req.params.id}'s Order:${req.params.userId} from database`,
         e
       )
     );

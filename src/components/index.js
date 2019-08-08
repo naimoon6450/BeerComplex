@@ -8,4 +8,14 @@ import SingleProduct from './SingleProduct';
 import SingleProductView from './SingleProductView';
 import SPVFunctional from './SPVFunctional';
 
-export { Navbar, Login, SignUp, AllProducts, Home, FrontBanner, SingleProduct, SingleProductView, SPVFunctional };
+export {
+  Navbar,
+  Login,
+  SignUp,
+  AllProducts,
+  Home,
+  FrontBanner,
+  SingleProduct,
+  SingleProductView,
+  SPVFunctional,
+};
