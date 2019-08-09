@@ -1,57 +1,57 @@
-import React from "react";
-import { connect } from "react-redux";
-import { postSignup } from "../redux/reducers/user";
-import { convertEmptyToNull } from "../../utils";
+import React from 'react';
+import { connect } from 'react-redux';
+import { postSignup } from '../redux/reducers/user';
+import { convertEmptyToNull } from '../../utils';
 
 import {
   withStyles,
   makeStyles,
-  MuiThemeProvider
-} from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
+  MuiThemeProvider,
+} from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import Checkbox from '@material-ui/core/Checkbox';
-import Button from "@material-ui/core/Button";
-import theme from "../themes";
+import Button from '@material-ui/core/Button';
+import theme from '../themes';
 
 const styles = makeStyles({
   body: {
-    backgroundColor: theme.palette.common.white
+    backgroundColor: theme.palette.common.white,
   },
   paper: {
     marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   form: {
-    width: "100%",
-    marginTop: theme.spacing(3)
+    width: '100%',
+    marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
+    margin: theme.spacing(3, 0, 2),
+  },
 });
 
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      address1: "",
-      address2: "",
-      city: "",
-      state: "",
-      zipCode: "",
-      phone: ""
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      address1: '',
+      address2: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      phone: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -61,18 +61,18 @@ class SignUp extends React.Component {
     event.preventDefault();
     await this.props.postSignup(convertEmptyToNull(this.state));
     this.setState({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      address1: "",
-      address2: "",
-      city: "",
-      state: "",
-      zipCode: "",
-      phone: ""
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      address1: '',
+      address2: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      phone: '',
     });
-    this.props.history.push("/products");
+    this.props.history.push('/products');
   }
 
   handleChange(event) {
@@ -247,7 +247,7 @@ class SignUp extends React.Component {
 const mapDispatchToProps = dispatch => ({
   postSignup: user => {
     dispatch(postSignup(user));
-  }
+  },
 });
 
 const StyledSignUp = withStyles(styles)(SignUp);

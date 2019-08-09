@@ -12,14 +12,14 @@ describe('Product routes', () => {
     name: `Ellie's Brown Ale`,
     description: `This beautiful, deep russet brew has the sweet and somewhat nutty character of Adam Avery's late (1992-2002) Chocolate Lab, for which it is named.`,
     imageUrl: '/images/avery_ellies.jpg',
-    price: 5.0
+    price: 5.0,
   };
 
   const sampleProd2 = {
     name: `Naimuns Finest`,
     description: `This beautiful test wine is delicious for the brave.`,
     imageUrl: '/images/avery_ellies.jpg',
-    price: 100.0
+    price: 100.0,
   };
 
   beforeEach(async () => {

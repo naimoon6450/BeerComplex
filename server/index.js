@@ -27,8 +27,8 @@ app.use(
     cookie: {
       maxAge: SESH_LIFETIME, // create env variable for SESH LIFETIME
       sameSite: true,
-      secure: false // if PROD change to true, create ENV var for this
-    }
+      secure: false, // if PROD change to true, create ENV var for this
+    },
   })
 );
 

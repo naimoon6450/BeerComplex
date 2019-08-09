@@ -1,13 +1,13 @@
-const router = require("express").Router();
-const { Order, User, OrderProduct, Product } = require("../../db/index");
+const router = require('express').Router();
+const { Order, User, OrderProduct, Product } = require('../../db/index');
 
 // API/orders
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const orders = await Order.findAll({
       include: [
-        { model: Product, through: { attributes: ["productQuantity"] } }
-      ]
+        { model: Product, through: { attributes: ['productQuantity'] } },
+      ],
     });
     res.json(orders);
   } catch (e) {
@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   //   try {
   //     const { id, user, session, orderTotal, product } = req.body;
   //     const order = await Order.create({id, orderTotal});
@@ -32,11 +32,11 @@ router.post("/", async (req, res) => {
 });
 
 // /api/orders/:id (specific order, which includes products)
-router.get("/orders/:id", async (req, res) => {
+router.get('/orders/:id', async (req, res) => {
   try {
     const order = await Order.findOne({
       where: { id: req.params.id },
-      include: { models: ["OrderProduct", "Product", "Session"] }
+      include: { models: ['OrderProduct', 'Product', 'Session'] },
     });
     res.json(order);
   } catch (e) {
@@ -48,7 +48,7 @@ router.get("/orders/:id", async (req, res) => {
 });
 
 // /api/users/:id/orders (all orders of a user)
-router.get("/users/:id/orders", async (req, res) => {
+router.get('/users/:id/orders', async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
     const orders = await user.getOrders();
@@ -65,7 +65,7 @@ router.get("/users/:id/orders", async (req, res) => {
 });
 
 // /api/users/:id/orders/:id (specific order of a user, which includes products)
-router.get("/users/:id/orders/:orderId", async (req, res) => {
+router.get('/users/:id/orders/:orderId', async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
     const orders = await user.getOrders();
@@ -83,14 +83,14 @@ router.get("/users/:id/orders/:orderId", async (req, res) => {
 });
 
 // API/orders
-router.post("/orders", async (req, res, next) => {
+router.post('/orders', async (req, res, next) => {
   try {
     const { user, session, orderTotal, products } = req.body;
     const order = await Order.create({ user, session, orderTotal });
     const orderProducts = await products.map(product => {
       return OrderProduct.create({
         productId: product.id,
-        productQuantity: product.productQuantity
+        productQuantity: product.productQuantity,
       });
     });
     orderProducts.map(orderProduct =>

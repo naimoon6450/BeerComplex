@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
   res.send({
     loggedIn:
       typeof req.session.userId === 'string' &&
-      req.session.userType === 'registered'
+      req.session.userType === 'registered',
   });
 });
 
@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => {
       } else {
         const guestUserSession = await Session.findByPk(req.session.id);
         await guestUserSession.update({
-          userId: user.id
+          userId: user.id,
         });
 
         req.session.userType = 'registered';
@@ -54,7 +54,7 @@ router.post('/signup', async (req, res) => {
       city,
       state,
       zipCode,
-      phone
+      phone,
     } = req.body;
 
     if (firstName && lastName && email && password) {
@@ -74,7 +74,7 @@ router.post('/signup', async (req, res) => {
           city,
           state,
           zipCode,
-          phone
+          phone,
         });
         console.log('Signed up and logged in as:', registeredUser.id);
         req.session.userType = 'registered';

@@ -8,7 +8,7 @@ import { convertEmptyToNull } from '../../utils';
 import {
   makeStyles,
   withStyles,
-  MuiThemeProvider
+  MuiThemeProvider,
 } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
@@ -26,21 +26,21 @@ const APOS = '&apos';
 
 const styles = makeStyles({
   body: {
-    backgroundColor: theme.palette.common.white
+    backgroundColor: theme.palette.common.white,
   },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   form: {
     width: '100%',
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
+    margin: theme.spacing(3, 0, 2),
+  },
 });
 
 class Login extends React.Component {
@@ -48,7 +48,7 @@ class Login extends React.Component {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -59,7 +59,7 @@ class Login extends React.Component {
     await this.props.postLogin(convertEmptyToNull(this.state));
     this.setState({
       email: '',
-      password: ''
+      password: '',
     });
     this.props.history.push('/products');
   }
@@ -71,52 +71,52 @@ class Login extends React.Component {
   render() {
     const classes = styles;
     return (
-      <Container component='main' maxWidth='xs'>
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
-          <Typography component='h1' variant='h5'>
+          <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
           <form className={classes.form} onSubmit={this.handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   required
                   fullWidth
-                  id='email'
-                  label='Email Address'
-                  name='email'
+                  id="email"
+                  label="Email Address"
+                  name="email"
                   onChange={this.handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   required
                   fullWidth
-                  name='password'
-                  label='Password'
-                  type='password'
-                  id='password'
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
                   onChange={this.handleChange}
                 />
               </Grid>
             </Grid>
             <MuiThemeProvider theme={theme}>
               <Button
-                type='submit'
+                type="submit"
                 fullWidth
-                variant='contained'
-                color='secondary'
+                variant="contained"
+                color="secondary"
                 className={classes.submit}
               >
                 Log In
               </Button>
             </MuiThemeProvider>
-            <Grid container justify='flex-end'>
+            <Grid container justify="flex-end">
               <Grid item>
-                <Link href='/signup' variant='body2'>
+                <Link href="/signup" variant="body2">
                   Don{APOS}t have an account? Sign Up
                 </Link>
               </Grid>
@@ -131,7 +131,7 @@ class Login extends React.Component {
 const mapDispatchToProps = dispatch => ({
   postLogin: user => {
     dispatch(postLogin(user));
-  }
+  },
 });
 
 const StyledLogin = withStyles(styles)(Login);

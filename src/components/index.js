@@ -15,5 +15,5 @@ export {
   FrontBanner,
   SingleProduct,
   SingleProductView,
-  SPVFunctional
+  SPVFunctional,
 };

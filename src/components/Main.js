@@ -1,11 +1,11 @@
-import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
-import { Navbar, Login, SignUp, AllProducts, SingleProductView } from "./index";
-import { fetchAuthStatus } from "../redux/reducers/user";
-import store from "../redux/store";
-import { MuiThemeProvider } from "@material-ui/core/styles";
-import theme, { partOptions } from "../themes";
-import Particles from "react-particles-js";
+import React from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { Navbar, Login, SignUp, AllProducts, SingleProductView } from './index';
+import { fetchAuthStatus } from '../redux/reducers/user';
+import store from '../redux/store';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import theme, { partOptions } from '../themes';
+import Particles from 'react-particles-js';
 
 class Main extends React.Component {
   constructor(props) {
