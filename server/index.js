@@ -13,7 +13,6 @@ const SESH_NAME = 'SID'; // store in env file
 const expressSession = require('express-session');
 
 // static middleware, body parsing middleware, logging middleware
-app.use(morgan(process.env.MORGAN_MODE || null));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // this helped me see req.body
 app.use(morgan(process.env.MORGAN_MODE || null));
