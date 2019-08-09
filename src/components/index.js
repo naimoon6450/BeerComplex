@@ -6,6 +6,7 @@ import FrontBanner from './FrontBanner';
 import SingleProduct from './SingleProduct';
 import SingleProductView from './SingleProductView';
 import SPVFunctional from './SPVFunctional';
+import FilterContainer from './FilterContainer';
 
 export {
   Navbar,
@@ -16,4 +17,5 @@ export {
   SingleProduct,
   SingleProductView,
   SPVFunctional,
+  FilterContainer
 };

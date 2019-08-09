@@ -12,40 +12,40 @@ const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT';
 // Action Creators
 const getAllProducts = products => ({
   type: GET_ALL_PRODUCTS,
-  products,
+  products
 });
 
 const getSingleProduct = product => ({
   type: GET_SINGLE_PRODUCT,
-  product,
+  product
 });
 
 const fetchingProductData = () => ({
-  type: PRODUCT_REQUEST,
+  type: PRODUCT_REQUEST
 });
 
 const fetchingProductDataError = error => ({
   type: PRODUCT_REQUEST_FAILURE,
   error: 'Failed to fetch product data',
-  payload: error,
+  payload: error
 });
 
 const checkPendingOrder = sessionId => ({
   type: CHECK_FOR_PENDING_ORDER,
-  sessionId,
+  sessionId
 });
 
 export const addProductToCart = product => {
   return {
     type: ADD_PRODUCT_TO_CART,
-    product,
+    product
   };
 };
 
 export const setQuantity = quantity => {
   return {
     type: UPDATE_QUANTITY,
-    quantity,
+    quantity
   };
 };
 
@@ -84,10 +84,11 @@ export const fetchSingleProduct = prodId => dispatch => {
 // Reducers
 const initialState = {
   products: [],
+  suppliers: [],
   singleProduct: {},
   isFetching: false,
   cart: [],
-  quantity: 1,
+  quantity: 1
 };
 
 const products = (state = initialState, action) => {
@@ -99,7 +100,7 @@ const products = (state = initialState, action) => {
     case GET_SINGLE_PRODUCT:
       return {
         ...state,
-        singleProduct: action.product,
+        singleProduct: action.product
       };
     case ADD_PRODUCT_TO_CART:
       return { ...state, cart: [...state.cart, action.product] };
