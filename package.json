@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "npx jest ./tests/setup.js ./tests/**/*.spec.js --watch",
     "start": "node server/index.js",
     "build": "webpack -p",
     "start:dev": "npx webpack src/index.js -o ./public/bundle.js --watch & npx nodemon ./server/index.js -q",
-    "test": "npx jest ./tests/setup.js ./tests/**/*.spec.js --watch",
     "seed": "node seed.js"
   },
   "dependencies": {
