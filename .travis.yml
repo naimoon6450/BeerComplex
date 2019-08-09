@@ -7,3 +7,8 @@ services:
 
 before_script:
   - psql -c "create database grace_shopper;" -U postgres
+
+jobs:
+  include:
+    -script: npm run lint
+    name: 'running ESLint'
