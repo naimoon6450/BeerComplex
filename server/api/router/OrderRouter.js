@@ -4,7 +4,11 @@ const { Order, User, Product, OrderProduct } = require('../../db/index');
 // GET API/orders
 router.get('/', async (req, res) => {
   try {
-    const orders = await Order.findAll({include: [{model: Product, through: {attributes: ['productQuantity']}}]});
+    const orders = await Order.findAll({
+      include: [
+        { model: Product, through: { attributes: ['productQuantity'] } },
+      ],
+    });
     res.json(orders);
   } catch (e) {
     console.error(e);
@@ -13,6 +17,23 @@ router.get('/', async (req, res) => {
 
 // POST API/orders
 router.post('/', async (req, res) => {
+  //   try {
+  //     const { id, user, session, orderTotal, product } = req.body;
+  //     const order = await Order.create({id, orderTotal});
+  //     if (req.userId) {
+  //       await Order.update{(user);
+  //     }
+  //     const orderProducts = await OrderProduct.create();
+  //     await order.addProduct
+  //     const joinedOrder = Order.findByPk(order.id, {include: [OrderProduct]});
+  //     res.json(joinedOrder);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+});
+
+// /api/orders/:id (specific order, which includes products)
+router.get('/orders/:id', async (req, res) => {
   try {
     const { addUpdateCart } = Order;
     const { orderProducts } = req.body;
@@ -59,6 +80,45 @@ router.post('/', async (req, res) => {
 // });
 
 // /api/users/:id/orders/:id (specific order of a user, which includes products)
+router.get('/users/:id/orders/:orderId', async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    const orders = await user.getOrders();
+    const order = orders.filter(_order => _order.id === req.params.orderId)[0];
+    res.json(order);
+  } catch (e) {
+    console.log(e =>
+      console.error(
+        `Could not get User:${req.params.id}'s Order:${req.params.userId} from database`,
+        e
+      )
+    );
+    res.sendStatus(500);
+  }
+});
+
+// API/orders
+router.post('/orders', async (req, res, next) => {
+  try {
+    const { user, session, orderTotal, products } = req.body;
+    const order = await Order.create({ user, session, orderTotal });
+    const orderProducts = await products.map(product => {
+      return OrderProduct.create({
+        productId: product.id,
+        productQuantity: product.productQuantity,
+      });
+    });
+    orderProducts.map(orderProduct =>
+      orderProduct.update({ orderId: order.id })
+    );
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+//post routes
+
+//update routes
 // router.get('/users/:id/orders/:orderId', async (req, res) => {
 //   try {
 //     const user = await User.findByPk(req.params.id);
