@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import {
   Card,
@@ -64,6 +65,14 @@ const SingleProduct = props => {
       </CardContent>
     </Card>
   );
+};
+
+// proptypes to do typechecking
+SingleProduct.propTypes = {
+  product: PropTypes.object,
+  supplier: PropTypes.object,
+  category: PropTypes.object,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default SingleProduct;
