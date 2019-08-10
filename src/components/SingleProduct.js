@@ -42,8 +42,8 @@ const SingleProduct = props => {
   const classes = styles();
   return (
     <Card className={classes.root}>
-      <CardHeader title={product.name} subheader={category.name} />
       <Link to={`/products/${product.id}`} style={{ textDecoration: 'none' }}>
+        <CardHeader title={product.name} subheader={category.name} />
         <CardMedia image={product.imageUrl} className={classes.media} />
       </Link>
       <CardContent>
@@ -58,15 +58,7 @@ const SingleProduct = props => {
           Brewery: {supplier.name}
         </Typography>
 
-        <Fab
-          size="small"
-          color="secondary"
-          aria-label="add"
-          onClick={() => {
-            // this.props.addToCart(product);
-            // console.log('Added to cart');
-          }}
-        >
+        <Fab size="small" color="secondary" aria-label="add">
           <AddIcon onClick={() => addToCart(product)} />
         </Fab>
       </CardContent>
