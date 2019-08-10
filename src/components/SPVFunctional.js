@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
   Grid,
@@ -26,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     margin: 'auto',
-    maxWidth: '50em',
+    maxWidth: '80em',
     maxHeight: 'auto',
   },
   img: {
