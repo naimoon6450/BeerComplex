@@ -9,6 +9,7 @@ import SPVFunctional from './SPVFunctional';
 import FilterContainer from './FilterContainer';
 import Cart from './Cart';
 import CartFunctional from './CartFunctional';
+import FormCreator from './FormCreator';
 
 export {
   Navbar,
@@ -22,4 +23,5 @@ export {
   FilterContainer,
   Cart,
   CartFunctional,
+  FormCreator,
 };
