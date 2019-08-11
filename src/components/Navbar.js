@@ -29,7 +29,7 @@ const styles = () => ({
 
 class Navbar extends React.Component {
   render() {
-    const { logout, loggedIn, classes } = this.props;
+    const { logout, loggedIn, classes, cartLen } = this.props;
     return (
       <div className={classes.root}>
         <AppBar position="static" color="secondary">
@@ -70,9 +70,7 @@ class Navbar extends React.Component {
                   Sign Up
                 </Button>
                 <Button component={Link} to="/cart" color="inherit">
-                  {this.props.cartLen
-                    ? `Cart (${this.props.cartLen})`
-                    : 'Cart (0)'}
+                  {this.props.cartLen ? `Cart (${cartLen})` : 'Cart (0)'}
                 </Button>
               </div>
             )}
@@ -86,7 +84,7 @@ class Navbar extends React.Component {
 const mapStateToProps = state => ({
   loggedInUser: state.users.loggedInUser,
   loggedIn: state.users.loggedIn,
-  cartLen: state.cart.length, // doesn't work yet TODO
+  cartLen: state.cartLen,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -100,7 +98,7 @@ Navbar.propTypes = {
   loggedInUser: PropTypes.object,
   loggedIn: PropTypes.bool,
   logout: PropTypes.func,
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object,
 };
 
 const StyledNavbar = withStyles(styles)(Navbar);

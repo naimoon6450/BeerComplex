@@ -26,7 +26,10 @@ const initialState = {
 const cart = (state = initialState, action) => {
   switch (action.type) {
     case ADD_PRODUCT_TO_CART:
-      return { ...state, cart: [...state.cart, action.product] };
+      return {
+        ...state,
+        cart: [...state.cart, action.product],
+      };
     case UPDATE_QUANTITY:
       return { ...state, quantity: action.quantity };
     default:

@@ -4,11 +4,10 @@ import {
   Paper,
   Typography,
   ButtonBase,
-  Select,
   FormControl,
   InputLabel,
-  OutlinedInput,
-  MenuItem,
+  NativeSelect,
+  Input,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -42,6 +41,7 @@ const useStyles = makeStyles(theme => ({
 
 const CartFunctional = props => {
   const classes = useStyles();
+  const { quantity, updateItem, cartItemState } = props;
   const { cart } = props.cart;
   return cart.length ? (
     cart.map(cartItem => {
@@ -70,26 +70,23 @@ const CartFunctional = props => {
             <Grid item sm={2}>
               {/* no state at the moment to hold the value */}
               <FormControl className={classes.labelWidth} variant="outlined">
-                <InputLabel htmlFor="outlined-quant-simple">
+                <InputLabel shrink htmlFor="cat-label">
                   Quantity
                 </InputLabel>
-                <Select
-                  value="1"
-                  input={
-                    <OutlinedInput name="quantity" id="outlined-quant-simple" />
-                  }
+                <NativeSelect
+                  // value={state.age}
+                  // onChange={handleChange('age')}
+                  input={<Input name="quant" id="quant-id" />}
+                  onChange={e => console.log(e.target.value)}
                 >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
                   {[1, 2, 3, 4, 5].map((quant, ind) => {
                     return (
-                      <MenuItem key={ind} value={quant}>
+                      <option key={ind} value={quant}>
                         {quant}
-                      </MenuItem>
+                      </option>
                     );
                   })}
-                </Select>
+                </NativeSelect>
               </FormControl>
             </Grid>
           </Grid>
