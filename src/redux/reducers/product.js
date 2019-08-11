@@ -47,11 +47,11 @@ export const fetchProducts = (category = null, supplier = null) => dispatch => {
     .catch(error => dispatch(fetchingProductDataError(error)));
 };
 
-export const fetchProduct = product => dispatch => {
+export const fetchProduct = productId => dispatch => {
   dispatch(fetchingProductData());
   axios
-    .get(`/api/products/${product.id}`)
-    .then(({ data }) => dispatch(getProduct(data)))
+    .get(`/api/products/${productId}`)
+    .then((response => dispatch(getProduct(response))))
     .catch(error => console.error(error));
 };
 
@@ -69,7 +69,7 @@ const products = (state = initialState, action) => {
     case GET_PRODUCTS:
       return { ...state, products: action.products, isFetching: false };
     case GET_PRODUCT:
-      return { ...state, product: action.product };
+      return { ...state, product: action.product, isFetching: false };
     default:
       return state;
   }

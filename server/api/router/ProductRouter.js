@@ -13,9 +13,9 @@ router.post('/', async (req, res, next) => {
 })
 
 // GET API/products
-router.get('/:categoryId?/:supplierId?', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
-    const { categoryId, supplierId } = req.params;
+    const { categoryId, supplierId } = req.query;
     let whereCondition = {};
     if (categoryId) {
       whereCondition.categoryId = categoryId;
@@ -34,7 +34,7 @@ router.get('/:categoryId?/:supplierId?', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
-    const product = await Product.findByPk(id, { include: [{ model: Supplier }, { model: Category }] });
+    const product = await Product.findByPk(id);
     res.json(product);
   } catch (error) {
     console.error(error);
