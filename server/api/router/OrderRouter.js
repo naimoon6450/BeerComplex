@@ -17,33 +17,24 @@ router.get('/', async (req, res) => {
 
 // POST API/orders
 router.post('/', async (req, res) => {
-  //   try {
-  //     const { id, user, session, orderTotal, product } = req.body;
-  //     const order = await Order.create({id, orderTotal});
-  //     if (req.userId) {
-  //       await Order.update{(user);
-  //     }
-  //     const orderProducts = await OrderProduct.create();
-  //     await order.addProduct
-  //     const joinedOrder = Order.findByPk(order.id, {include: [OrderProduct]});
-  //     res.json(joinedOrder);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-});
-
-// /api/orders/:id (specific order, which includes products)
-router.get('/orders/:id', async (req, res) => {
   try {
     const { addUpdateCart } = Order;
     const { orderProducts } = req.body;
     const userId = req.session.userId;
     const order = await addUpdateCart(orderProducts, userId);
     res.sendStatus(200).send('Order posted successfully:', order);
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(error);
   }
 });
+
+// /api/orders/:id (specific order, which includes products)
+// router.get('/orders/:id', async (req, res) => {
+//   try {
+//   } catch (error) {
+//     console.error(error);
+//   }
+// });
 
 // NOT TESTED YET
 // // /api/orders/:id (specific order, which includes products)

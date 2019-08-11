@@ -3,7 +3,7 @@ import Login from './Login';
 import SignUp from './SignUp';
 import AllProducts from './AllProducts';
 import FrontBanner from './FrontBanner';
-import SingleProduct from './SingleProduct';
+import SingleProductOnAllProducts from './SingleProductOnAllProducts';
 import SingleProductView from './SingleProductView';
 import SPVFunctional from './SPVFunctional';
 
@@ -13,7 +13,7 @@ export {
   SignUp,
   AllProducts,
   FrontBanner,
-  SingleProduct,
+  SingleProductOnAllProducts,
   SingleProductView,
   SPVFunctional,
 };

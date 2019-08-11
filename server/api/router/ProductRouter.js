@@ -13,17 +13,17 @@ router.post('/', async (req, res, next) => {
 })
 
 // GET API/products
-router.get('/:category?/:supplier?', async (req, res, next) => {
+router.get('/:categoryId?/:supplierId?', async (req, res, next) => {
   try {
-    const { category, supplier } = req.params;
-    const whereCondition = {};
-    if (category) {
-      whereCondition.category = category;
+    const { categoryId, supplierId } = req.params;
+    let whereCondition = {};
+    if (categoryId) {
+      whereCondition.categoryId = categoryId;
     }
-    if (supplier) {
-      whereCondition.supplier = supplier;
+    if (supplierId) {
+      whereCondition.supplierId = supplierId;
     }
-    const products = await Product.findAll({ include: [{ model: Supplier }, { model: Category }], where: whereCondition });
+    const products = await Product.findAll({ include: [Supplier, Category], where: whereCondition });
     res.json(products);
   } catch (error) {
     console.error(error);

@@ -1,31 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSingleProduct } from '../redux/reducers/product';
-import store from '../redux/store';
+import { fetchProduct } from '../redux/reducers/product';
 import { SPVFunctional } from './index';
+import { postOrder } from '../redux/reducers/order';
+import PropTypes from 'prop-types';
 
 class SingleProductView extends Component {
   componentDidMount() {
-    const prodId = this.props.match.params.id;
-    const singleProdThunk = fetchSingleProduct(prodId);
-    store.dispatch(singleProdThunk);
+    const id = this.props.match.params.id;
+    this.props.fetchProduct(id);
   }
   render() {
-    const { singleProduct } = this.props;
-    return singleProduct ? <SPVFunctional product={singleProduct} /> : <div />;
+    const { product, addToCart } = this.props;
+    return product ? <SPVFunctional product={product} addToCart={addToCart} /> : <div />;
   }
 }
+
+// proptypes to do typechecking
+SingleProductView.propTypes = {
+  match: PropTypes.object,
+  product: PropTypes.object,
+  fetchProduct: PropTypes.func,
+  addToCart: PropTypes.func,
+};
 
 const mapStateToProps = state => {
   return {
     products: state.products.products,
-    singleProduct: state.products.singleProduct,
+    product: state.products.product,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    addToCart: product => dispatch(addProductToCart(product)),
+    addToCart: order => dispatch(postOrder(order)),
+    fetchProduct: id => dispatch(fetchProduct(id)),
   };
 };
 

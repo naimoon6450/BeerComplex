@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { postOrder } from '../redux/reducers/order'
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -39,22 +37,12 @@ const styles = makeStyles({
   },
 });
 
-class SingleProduct extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     quantity: '',
-  //   }
-  // }
-
-  // handleChange (event) {
-  //   this.setState({quantity: event.target.value});
-  // }
-
-  render () {
-    const { product, addToCart } = this.props;
+const SingleProductOnAllProducts = (props) => {
+    let descWrapped;
+    const { product, addToCart } = props;
     const { supplier, category } = product;
-    const descWrapped = truncate(product.description, HEIGHT_WRAP);
+    product.description ? descWrapped = truncate(product.description, HEIGHT_WRAP)
+    : descWrapped = null;
     const classes = styles();
     return (
       <Link to={`/products/${product.id}`} style={{ textDecoration: 'none' }}>
@@ -62,9 +50,6 @@ class SingleProduct extends React.Component {
           <CardHeader title={product.name} subheader={category.name} />
           <CardMedia image={product.imageUrl} className={classes.media} />
           <CardContent>
-            {/* <li>
-              <img src={product.imageUrl} className="product-image" />
-            </li> */}
             <Typography variant="body2" className={classes.desc}>
               {descWrapped}
             </Typography>
@@ -78,7 +63,7 @@ class SingleProduct extends React.Component {
               color="secondary"
               aria-label="add"
               onClick={() => {
-                addToCart({orderProducts: [product]});
+                addToCart({orderProducts: [{product, quantity: 1}]});
               }}
             >
               <AddIcon />
@@ -87,30 +72,12 @@ class SingleProduct extends React.Component {
         </Card>
       </Link>
     );
-  }
 }
 
-const mapStateToProps = state => {
-  return {
-    product: state.products.products,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    addToCart: (order) => dispatch(postOrder(order)),
-  };
-};
-
 // proptypes to do typechecking
-SingleProduct.propTypes = {
+SingleProductOnAllProducts.propTypes = {
   product: PropTypes.object,
   addToCart: PropTypes.func,
 };
 
-const ConnectedSingleProduct = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SingleProduct);
-
-export default ConnectedSingleProduct;
+export default SingleProductOnAllProducts;

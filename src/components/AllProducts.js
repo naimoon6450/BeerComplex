@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchAllProducts, addProductToCart } from '../redux/reducers/product';
-import { FrontBanner, SingleProduct } from './index';
+import { fetchProducts } from '../redux/reducers/product';
+import { postOrder } from '../redux/reducers/order';
+import { FrontBanner, SingleProductOnAllProducts } from './index';
 import { Grid } from '@material-ui/core';
 
 class AllProducts extends React.Component {
@@ -11,7 +12,7 @@ class AllProducts extends React.Component {
   }
 
   render() {
-    const { products } = this.props;
+    const { products, addToCart } = this.props;
     return (
       // Will have banner here
       <div>
@@ -21,11 +22,12 @@ class AllProducts extends React.Component {
           {products.map(product => {
             const { supplier, category } = product;
             return (
-              <SingleProduct
+              <SingleProductOnAllProducts
                 key={product.id}
                 product={product}
                 supplier={supplier}
                 category={category}
+                addToCart={addToCart}
               />
             );
           })}
@@ -43,8 +45,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchProducts: () => dispatch(fetchAllProducts()),
-    addToCart: product => dispatch(addProductToCart(product)),
+    fetchProducts: () => dispatch(fetchProducts()),
+    addToCart: order => dispatch(postOrder(order)),
   };
 };
 
