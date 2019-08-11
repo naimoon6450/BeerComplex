@@ -5,6 +5,7 @@ import { fetchProducts } from '../redux/reducers/product';
 import { postOrder } from '../redux/reducers/order';
 import { FrontBanner, SingleProductOnAllProducts } from './index';
 import { Grid } from '@material-ui/core';
+import { FilterContainer } from './index';
 
 class AllProducts extends React.Component {
   componentDidMount() {
@@ -14,10 +15,9 @@ class AllProducts extends React.Component {
   render() {
     const { products, addToCart } = this.props;
     return (
-      // Will have banner here
       <div>
         <FrontBanner />
-        <div id="filters">hi</div>
+        <FilterContainer products={products} />
         <Grid container spacing={10} justify="center">
           {products.map(product => {
             const { supplier, category } = product;
