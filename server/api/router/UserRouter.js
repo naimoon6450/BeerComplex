@@ -23,4 +23,14 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+// /api/users/:id
+router.post('/:id', async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    // res.json
+  } catch {
+    next();
+  }
+});
+
 module.exports = router;
