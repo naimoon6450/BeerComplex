@@ -11,6 +11,7 @@ import Cart from './Cart';
 import CartFunctional from './CartFunctional';
 import FormCreator from './FormCreator';
 import UserPage from './UserPage';
+import Checkout from './Checkout';
 
 export {
   Navbar,
@@ -25,5 +26,6 @@ export {
   Cart,
   CartFunctional,
   FormCreator,
-  UserPage
+  UserPage,
+  Checkout,
 };
