@@ -13,21 +13,21 @@ const APOS = '&apos';
 
 const styles = makeStyles({
   body: {
-    backgroundColor: theme.palette.common.white,
+    backgroundColor: theme.palette.common.white
   },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   form: {
     width: '100%',
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(3)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+    margin: theme.spacing(3, 0, 2)
+  }
 });
 
 const FormCreator = props => {
@@ -36,24 +36,24 @@ const FormCreator = props => {
     formTitle,
     handleSubmit,
     handleChange,
-    formType,
+    formType
   } = props.formProps;
   const classes = styles();
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component='main' maxWidth='xs'>
       <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
+        <Typography component='h1' variant='h5'>
           {formTitle}
         </Typography>
       </div>
-      <form className={classes.form} onSubmit={handleSubmit}>
+      <form className={classes.form} onSubmit={e => handleSubmit(e)}>
         <Grid container spacing={2}>
           {fields.map((field, id) => {
             return (
               <Grid key={id + field.name} item xs={12}>
                 <TextField
-                  variant="outlined"
-                  autoComplete=""
+                  variant='outlined'
+                  autoComplete=''
                   fullWidth
                   required={field.required}
                   name={field.name}
@@ -65,23 +65,22 @@ const FormCreator = props => {
             );
           })}
         </Grid>
+        <Button
+          type='submit'
+          fullWidth
+          variant='contained'
+          color='secondary'
+          className={classes.submit}
+        >
+          Submit
+        </Button>
       </form>
-
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        color="secondary"
-        className={classes.submit}
-      >
-        Submit
-      </Button>
 
       {/* specific footer for login and signup otherwise don't need anything */}
       {formType === 'Login' || formType === 'Sign Up' ? (
-        <Grid container justify="flex-end">
+        <Grid container justify='flex-end'>
           <Grid item>
-            <Link href="/signup" variant="body2">
+            <Link href='/signup' variant='body2'>
               {formType === 'Login'
                 ? `Don't have an account? Sign Up`
                 : 'Already have an account? Log In'}

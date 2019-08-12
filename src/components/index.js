@@ -10,6 +10,7 @@ import FilterContainer from './FilterContainer';
 import Cart from './Cart';
 import CartFunctional from './CartFunctional';
 import FormCreator from './FormCreator';
+import UserPage from './UserPage';
 
 export {
   Navbar,
@@ -24,4 +25,5 @@ export {
   Cart,
   CartFunctional,
   FormCreator,
+  UserPage
 };

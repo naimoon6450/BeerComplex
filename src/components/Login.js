@@ -11,7 +11,7 @@ class Login extends React.Component {
     super(props);
     this.state = {
       email: '',
-      password: '',
+      password: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,7 +22,7 @@ class Login extends React.Component {
     await this.props.postLogin(convertEmptyToNull(this.state));
     this.setState({
       email: '',
-      password: '',
+      password: ''
     });
     this.props.history.push('/products');
   }
@@ -42,24 +42,24 @@ class Login extends React.Component {
           name: 'email',
           type: 'email',
           label: 'Email Address',
-          required: true,
+          required: true
         },
         {
           name: 'password',
           type: 'password',
           label: 'Password',
-          required: true,
-        },
-      ],
+          required: true
+        }
+      ]
     };
     return <FormCreator formProps={formProps} />;
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   postLogin: user => {
-    dispatch(postLogin(user));
-  },
+    dispatch(postLogin(user, ownProps.history));
+  }
 });
 
 const ConnectedLogin = connect(

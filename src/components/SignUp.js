@@ -17,7 +17,7 @@ class SignUp extends React.Component {
       city: '',
       state: '',
       zipCode: '',
-      phone: '',
+      phone: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,7 +36,7 @@ class SignUp extends React.Component {
       city: '',
       state: '',
       zipCode: '',
-      phone: '',
+      phone: ''
     });
     this.props.history.push('/products');
   }
@@ -55,63 +55,63 @@ class SignUp extends React.Component {
         {
           name: 'firstName',
           label: 'First Name',
-          required: true,
+          required: true
         },
         {
           name: 'lastName',
           label: 'Last Name',
-          required: true,
+          required: true
         },
         {
           name: 'address1',
-          label: 'Address Line 1',
+          label: 'Address Line 1'
         },
         {
           name: 'address2',
-          label: 'Address Line 2',
+          label: 'Address Line 2'
         },
         {
           name: 'city',
-          label: 'City',
+          label: 'City'
         },
         {
           name: 'state',
-          label: 'State',
+          label: 'State'
         },
         {
           name: 'zipcode',
-          label: 'Zip Code',
+          label: 'Zip Code'
         },
         {
           name: 'country',
-          label: 'Country',
+          label: 'Country'
         },
         {
           name: 'phone',
-          label: 'Phone',
+          label: 'Phone'
         },
         {
           name: 'email',
           type: 'email',
           label: 'Email Address',
-          required: true,
+          required: true
         },
         {
           name: 'password',
           type: 'password',
           label: 'Password',
-          required: true,
-        },
-      ],
+          required: true
+        }
+      ]
     };
     return <FormCreator formProps={formProps} />;
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   postSignup: user => {
-    dispatch(postSignup(user));
-  },
+    dispatch(postSignup(user, ownProps.history));
+  }
 });
 
 const ConnectedSignUp = connect(

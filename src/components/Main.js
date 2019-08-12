@@ -7,6 +7,7 @@ import {
   AllProducts,
   SingleProductView,
   Cart,
+  UserPage
 } from './index';
 import { fetchAuthStatus } from '../redux/reducers/user';
 import store from '../redux/store';
@@ -27,6 +28,7 @@ class Main extends React.Component {
 
   componentDidMount() {
     // getAuthStatus hits /api/auth and puts on the store
+    console.log('this works?');
     this.getAuthStatus();
   }
   componentDidUpdate() {
@@ -39,14 +41,15 @@ class Main extends React.Component {
         <MuiThemeProvider theme={theme}>
           <CssBaseline />
           <Navbar />
-          <Particles className="particles" params={partOptions} />
-          <div id="main">
+          <Particles className='particles' params={partOptions} />
+          <div id='main'>
             <Switch>
-              <Route path="/login" component={Login} />
-              <Route path="/signup" component={SignUp} />
-              <Route exact path="/" component={AllProducts} />
-              <Route path="/products/:id" component={SingleProductView} />
-              <Route path="/cart" component={Cart} />
+              <Route path='/login' component={Login} />
+              <Route path='/signup' component={SignUp} />
+              <Route exact path='/' component={AllProducts} />
+              <Route path='/products/:id' component={SingleProductView} />
+              <Route path='/cart' component={Cart} />
+              <Route path='/users/:id' component={UserPage} />
             </Switch>
           </div>
         </MuiThemeProvider>
